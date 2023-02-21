@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:web/login_page.dart';
 import 'package:web/sample_page.dart';
 
-void main() {
+import 'admin_page/dashboard.dart';
+import 'admin_page/project.dart';
+import 'admin_page/user_page.dart';
+
+Future<void> main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -26,7 +32,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  LoginPage(),
+      initialRoute: LoginPage.id,
+      routes: {
+        LoginPage.id: (context) => LoginPage(),
+        DashboardPage.id: (context) => DashboardPage(),
+        SamplePage.id: (context) => SamplePage(),
+        ProjectPage.id: (context) => ProjectPage(),
+        UserPage.id: (context) => UserPage()
+      },
     );
   }
 }

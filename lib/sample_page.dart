@@ -1,56 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:web/admin_page/project.dart';
+import 'package:web/admin_page/user_page.dart';
 
-class SamplePage extends StatelessWidget {
+import 'admin_page/dashboard.dart';
+
+class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
+
+  static const String id = "sample_page";
+
+  @override
+  State<SamplePage> createState() => _SamplePageState();
+}
+
+class _SamplePageState extends State<SamplePage> {
+  static const String id = "sample_page";
+  Widget _selectedScreen = const DashboardPage();
+
+  currentScreen(item) {
+    switch (item.route) {
+      case DashboardPage.id:
+        setState(() {
+          _selectedScreen = const DashboardPage();
+        });
+        break;
+      case ProjectPage.id:
+        setState(() {
+          _selectedScreen = const ProjectPage();
+        });
+        break;
+      case UserPage.id:
+        setState(() {
+          _selectedScreen = const UserPage();
+        });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Sample'),
+        title: const Text('Admin'),
       ),
       sideBar: SideBar(
         items: const [
           AdminMenuItem(
             title: 'Dashboard',
-            route: '/',
+            route: DashboardPage.id,
             icon: Icons.dashboard,
           ),
           AdminMenuItem(
-            title: 'Top Level',
-            icon: Icons.file_copy,
-            children: [
-              AdminMenuItem(
-                title: 'Second Level Item 1',
-                route: '/secondLevelItem1',
-              ),
-              AdminMenuItem(
-                title: 'Second Level Item 2',
-                route: '/secondLevelItem2',
-              ),
-              AdminMenuItem(
-                title: 'Third Level',
-                children: [
-                  AdminMenuItem(
-                    title: 'Third Level Item 1',
-                    route: '/thirdLevelItem1',
-                  ),
-                  AdminMenuItem(
-                    title: 'Third Level Item 2',
-                    route: '/thirdLevelItem2',
-                  ),
-                ],
-              ),
-            ],
+            title: 'ALL USERS',
+            route: UserPage.id,
+            icon: Icons.person,
           ),
+          AdminMenuItem(
+            title: 'ALL PROJECTS',
+            route: ProjectPage.id,
+            icon: Icons.file_present_outlined,
+          ),
+
         ],
-        selectedRoute: '/',
+        selectedRoute: SamplePage.id,
         onSelected: (item) {
-          if (item.route != null) {
-            Navigator.of(context).pushNamed(item.route!);
-          }
+          currentScreen(item);
+          //   if (item.route != null) {
+          //     Navigator.of(context).pushNamed(item.route!);
+          //   }
         },
         header: Container(
           height: 50,
@@ -80,17 +98,7 @@ class SamplePage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 36,
-            ),
-          ),
-        ),
+        child: _selectedScreen,
       ),
     );
   }
