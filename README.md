@@ -1,0 +1,2 @@
+# BuildEzi-Admin
+Admin panel
