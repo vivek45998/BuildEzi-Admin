@@ -45,10 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 35),
-                  SizedBox(
+                  const SizedBox(
                    // height:height*0.2,
                   //  width: width*0.2,
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(border: OutlineInputBorder()),
                       //...
                     ),

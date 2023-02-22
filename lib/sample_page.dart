@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:web/login_page.dart';
 
-class SamplePage extends StatelessWidget {
+class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
+  @override
+  State<SamplePage> createState() => _SamplePageState();
+}
+
+class _SamplePageState extends State<SamplePage> {
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Sample'),
+        title: const Text('Build Ezi'),
       ),
       sideBar: SideBar(
         items: const [
@@ -19,32 +25,21 @@ class SamplePage extends StatelessWidget {
             icon: Icons.dashboard,
           ),
           AdminMenuItem(
-            title: 'Top Level',
-            icon: Icons.file_copy,
-            children: [
-              AdminMenuItem(
-                title: 'Second Level Item 1',
-                route: '/secondLevelItem1',
-              ),
-              AdminMenuItem(
-                title: 'Second Level Item 2',
-                route: '/secondLevelItem2',
-              ),
-              AdminMenuItem(
-                title: 'Third Level',
-                children: [
-                  AdminMenuItem(
-                    title: 'Third Level Item 1',
-                    route: '/thirdLevelItem1',
-                  ),
-                  AdminMenuItem(
-                    title: 'Third Level Item 2',
-                    route: '/thirdLevelItem2',
-                  ),
-                ],
-              ),
-            ],
+            title: 'All Products',
+            route: '/',
+            icon: Icons.production_quantity_limits,
           ),
+          AdminMenuItem(
+            title: 'All Users',
+            route: '/',
+            icon: Icons.people_alt_rounded,
+          ),
+          AdminMenuItem(
+            title: 'Logout',
+            route: '/',
+            icon: Icons.logout,
+          ),
+
         ],
         selectedRoute: '/',
         onSelected: (item) {
