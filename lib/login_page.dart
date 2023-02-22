@@ -14,15 +14,11 @@ static const String id="loginPage";
 
 class _LoginPageState extends State<LoginPage> {
   var emailCtrl = TextEditingController();
-
   var passCtrl = TextEditingController();
 
   double height = 0;
-
   double width = 0;
 
-  @override
-  bool _isChecked = false;
 
   validLogin() {
     var email = emailCtrl.text.trim().toString();
@@ -71,115 +67,129 @@ class _LoginPageState extends State<LoginPage> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Row(
+      backgroundColor: Colors.blueGrey,
+      body: width> 480 ? Row(
         children: [
-          Expanded(
-            child: Container(
-              height: height,
-              width: width,
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.2),
-                // image: const DecorationImage(
-                //   image: AssetImage("assets/images/buildEzi.png"),
-                //   fit: BoxFit.cover,
-                // )
-              ),
-              child: Image.asset(
-                'assets/images/buildEzi.png',
-                fit: BoxFit.fitWidth,
-              ),
+          Container(
+            height: height,
+            width: width*0.5,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.2),
+              // image: const DecorationImage(
+              //   image: AssetImage("assets/images/buildEzi.png"),
+              //   fit: BoxFit.cover,
+              // )
+            ),
+            child: Image.asset(
+              'assets/images/buildEzi.png',
+              fit: BoxFit.fitWidth,
             ),
           ),
-          Expanded(
-            //<-- Expanded widget
+          SizedBox(
+            width: width*0.5,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding:  EdgeInsets.symmetric(vertical: height*0.02, horizontal: width*0.03),
               child: Container(
-                constraints: const BoxConstraints(maxWidth: 15),
-                padding: const EdgeInsets.symmetric(horizontal: 50),
+                constraints:  BoxConstraints(maxWidth: width*0.01),
+                padding:  EdgeInsets.symmetric(horizontal: width*0.015),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Container(
-                    //   height: height*0.2,
-                    //   width: width,
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.blue.withOpacity(0.2),
-                    //     // image: const DecorationImage(
-                    //     //   image: AssetImage("assets/images/build_ezi_logo.png"),
-                    //     //   fit: BoxFit.cover,
-                    //     // )
-                    //   ),
-                    //   // child: Image.asset(
-                    //   //   'assets/images/build_ezi_logo.png',
-                    //   //   fit: BoxFit.fitWidth,
-                    //   // ),
-                    // ),
-                    Center(
-                      child: SvgPicture.asset("assets/images/build_ezi.svg"),
-                    ),
-                    // Text(
-                    //   'Build Ezi',
-                    //   style: GoogleFonts.inter(
-                    //     fontSize: 17,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        'Login to your account',
-                        style: GoogleFonts.inter(
-                          fontSize: 23,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 35),
-                    TextField(
-                      controller: emailCtrl,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
 
-                      //...
+                    Center(
+                      // child: SvgPicture.asset("assets/images/build_ezi.svg"),
+                      child: Image.asset('assets/images/build_ezi_logo.png',),
                     ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: passCtrl,
-                      obscureText: true,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
-                      //...
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                        //...
-                        ),
-                    const SizedBox(height: 30),
-                    InkWell(
-                      onTap: () {
-                        validLogin();
-                      },
-                      child: Container(
-                        height: height * 0.06,
-                        width: width,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blue.withOpacity(0.2),
-                                const Color.fromARGB(255, 29, 221, 163)
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: const Center(
-                            child: Text(
-                          "Login",
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    )
+
+                    const SizedBox(height: 8),
+
+                      Container(
+                         height: height*0.5,
+                           decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(10),
+                           ),
+
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: width*0.05),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              SizedBox(height: height*0.05),
+                              Center(
+                                child: Text(
+                                  'Login to your account',
+                                  style: GoogleFonts.inter(
+                                    fontSize: height*0.025,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: height*0.05),
+
+                              Text("Enter Email",
+                                style: TextStyle(fontSize: height*0.02),),
+                              SizedBox(
+                                height: height*0.08,
+
+                                child: TextField(
+                                  controller: emailCtrl,
+                                  decoration:
+                                  const InputDecoration(border: OutlineInputBorder()),
+
+                                  //...
+                                ),
+                              ),
+                              SizedBox(height: height*0.02),
+
+                              Text("Enter Password",
+                                style: TextStyle(fontSize: height*0.02),),
+                              SizedBox(
+                                height: height*0.08,
+                                child: TextField(
+                                  controller: passCtrl,
+                                  obscureText: true,
+                                  decoration:
+                                  const InputDecoration(border: OutlineInputBorder()),
+                                  //...
+                                ),
+                              ),
+
+                              SizedBox(height: height*0.03),
+                              InkWell(
+                                onTap: () {
+                                  validLogin();
+                                },
+                                child: Container(
+                                  height: height * 0.06,
+
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.blue.withOpacity(0.2),
+                                          const Color.fromARGB(255, 29, 221, 163)
+                                        ],
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child:  Center(
+                                      child: Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: height*0.02,
+                                            fontWeight: FontWeight.w500
+                                        ),
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      )
+
                     // TextButton(
                     //   style: ButtonStyle(
                     //
@@ -199,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      ),
+      ) : Container(),
     );
   }
 }

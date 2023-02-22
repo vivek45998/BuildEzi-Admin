@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
-import 'package:web/login_page.dart';
 import 'package:web/admin_page/project.dart';
 import 'package:web/admin_page/user_page.dart';
-
 import 'admin_page/dashboard.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
-
+  static const String id = "sample_page";
   @override
   State<SamplePage> createState() => _SamplePageState();
 }
 
 class _SamplePageState extends State<SamplePage> {
-  static const String id = "sample_page";
 
-  @override
-  State<SamplePage> createState() => _SamplePageState();
-}
-
-class _SamplePageState extends State<SamplePage> {
-  static const String id = "sample_page";
   Widget _selectedScreen = const DashboardPage();
 
   currentScreen(item) {
@@ -49,7 +40,6 @@ class _SamplePageState extends State<SamplePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Build Ezi'),
-        title: const Text('Admin'),
       ),
       sideBar: SideBar(
         items: const [
@@ -59,12 +49,17 @@ class _SamplePageState extends State<SamplePage> {
             icon: Icons.dashboard,
           ),
           AdminMenuItem(
-            title: 'ALL USERS',
+            title: 'ALL Users',
             route: UserPage.id,
             icon: Icons.person,
           ),
           AdminMenuItem(
-            title: 'ALL PROJECTS',
+            title: 'ALL Projects',
+            route: ProjectPage.id,
+            icon: Icons.file_present_outlined,
+          ),
+          AdminMenuItem(
+            title: 'Logout',
             route: ProjectPage.id,
             icon: Icons.file_present_outlined,
           ),
@@ -73,9 +68,6 @@ class _SamplePageState extends State<SamplePage> {
         selectedRoute: SamplePage.id,
         onSelected: (item) {
           currentScreen(item);
-          //   if (item.route != null) {
-          //     Navigator.of(context).pushNamed(item.route!);
-          //   }
         },
         header: Container(
           height: 50,
