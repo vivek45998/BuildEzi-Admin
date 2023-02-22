@@ -3,10 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/sample_page.dart';
+import 'package:web/utiils/utils.page.dart';
+import 'package:web/values/app_assets.dart';
+import 'package:web/values/app_strings.dart';
 
 class LoginPage extends StatefulWidget {
-   LoginPage({Key? key}) : super(key: key);
-static const String id="loginPage";
+  LoginPage({Key? key}) : super(key: key);
+  static const String id = "loginPage";
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -28,40 +31,27 @@ class _LoginPageState extends State<LoginPage> {
     var email = emailCtrl.text.trim().toString();
     var pass = passCtrl.text.trim().toString();
     if (email.isEmpty) {
-      var snackBar = const SnackBar(
-        content: Text('Please enter valid email.'),
-        backgroundColor: Colors.red,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(5),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      print("Please enter valid input");
+      Utils.showSnackBar(AppStrings.emailEmpty, context, Colors.red);
       return false;
     } else if (emailCtrl.text.isValidEmail(emailCtrl.text) == false) {
-      var snackBar = const SnackBar(
-        content: Text("The email address is badly formatted."),
-        backgroundColor: Colors.red,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(5),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      print("The email address is badly formatted.");
+      Utils.showSnackBar(AppStrings.emailBadlyFormated, context, Colors.red);
       return false;
     } else if (pass.isEmpty) {
-      var snackBar = const SnackBar(
-        content: Text("Please enter valid password"),
-        backgroundColor: Colors.red,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(5),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      print("Please enter valid password");
+      Utils.showSnackBar(AppStrings.passEmpty, context, Colors.red);
+      return false;
+    } else if (pass.length <= 8) {
+      Utils.showSnackBar(AppStrings.lengthPass, context, Colors.red);
+      return false;
+    } else if (pass.validateStructure(pass) == false) {
+      Utils.showSnackBar(AppStrings.passCombineError, context, Colors.red);
+      return false;
     } else {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const SamplePage()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SamplePage(),
+        ),
+      );
       return true;
     }
   }
@@ -85,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 // )
               ),
               child: Image.asset(
-                'assets/images/buildEzi.png',
+                AppAssets.buildEziIcon,
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -101,35 +91,18 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Container(
-                    //   height: height*0.2,
-                    //   width: width,
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.blue.withOpacity(0.2),
-                    //     // image: const DecorationImage(
-                    //     //   image: AssetImage("assets/images/build_ezi_logo.png"),
-                    //     //   fit: BoxFit.cover,
-                    //     // )
-                    //   ),
-                    //   // child: Image.asset(
-                    //   //   'assets/images/build_ezi_logo.png',
-                    //   //   fit: BoxFit.fitWidth,
-                    //   // ),
-                    // ),
                     Center(
-                      child: SvgPicture.asset("assets/images/build_ezi.svg"),
+                      child: Image.asset(
+                        AppAssets.buildEziPngIcon,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                    // Text(
-                    //   'Build Ezi',
-                    //   style: GoogleFonts.inter(
-                    //     fontSize: 17,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
+
                     const SizedBox(height: 8),
+
                     Center(
                       child: Text(
-                        'Login to your account',
+                        AppStrings.loginTitle,
                         style: GoogleFonts.inter(
                           fontSize: 23,
                           color: Colors.black,
@@ -138,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 35),
+                    Text(AppStrings.enterEmailLabel.capitalize()),
                     TextField(
                       controller: emailCtrl,
                       decoration:
@@ -146,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                       //...
                     ),
                     const SizedBox(height: 20),
+                    Text(AppStrings.enterPasswordLabel.capitalize()),
                     TextField(
                       controller: passCtrl,
                       obscureText: true,
@@ -174,10 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             borderRadius: BorderRadius.circular(20)),
                         child: const Center(
-                            child: Text(
-                          "Login",
-                          textAlign: TextAlign.center,
-                        )),
+                          child: Text(
+                            AppStrings.login,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     )
                     // TextButton(
