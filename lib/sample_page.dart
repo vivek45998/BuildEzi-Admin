@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:web/login_page.dart';
+import 'package:web/admin_page/project.dart';
+import 'package:web/admin_page/user_page.dart';
+
+import 'admin_page/dashboard.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
@@ -10,42 +14,68 @@ class SamplePage extends StatefulWidget {
 }
 
 class _SamplePageState extends State<SamplePage> {
+  static const String id = "sample_page";
+
+  @override
+  State<SamplePage> createState() => _SamplePageState();
+}
+
+class _SamplePageState extends State<SamplePage> {
+  static const String id = "sample_page";
+  Widget _selectedScreen = const DashboardPage();
+
+  currentScreen(item) {
+    switch (item.route) {
+      case DashboardPage.id:
+        setState(() {
+          _selectedScreen = const DashboardPage();
+        });
+        break;
+      case ProjectPage.id:
+        setState(() {
+          _selectedScreen = const ProjectPage();
+        });
+        break;
+      case UserPage.id:
+        setState(() {
+          _selectedScreen = const UserPage();
+        });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Build Ezi'),
+        title: const Text('Admin'),
       ),
       sideBar: SideBar(
         items: const [
           AdminMenuItem(
             title: 'Dashboard',
-            route: '/',
+            route: DashboardPage.id,
             icon: Icons.dashboard,
           ),
           AdminMenuItem(
-            title: 'All Products',
-            route: '/',
-            icon: Icons.production_quantity_limits,
+            title: 'ALL USERS',
+            route: UserPage.id,
+            icon: Icons.person,
           ),
           AdminMenuItem(
-            title: 'All Users',
-            route: '/',
-            icon: Icons.people_alt_rounded,
-          ),
-          AdminMenuItem(
-            title: 'Logout',
-            route: '/',
-            icon: Icons.logout,
+            title: 'ALL PROJECTS',
+            route: ProjectPage.id,
+            icon: Icons.file_present_outlined,
           ),
 
         ],
-        selectedRoute: '/',
+        selectedRoute: SamplePage.id,
         onSelected: (item) {
-          if (item.route != null) {
-            Navigator.of(context).pushNamed(item.route!);
-          }
+          currentScreen(item);
+          //   if (item.route != null) {
+          //     Navigator.of(context).pushNamed(item.route!);
+          //   }
         },
         header: Container(
           height: 50,
@@ -75,17 +105,7 @@ class _SamplePageState extends State<SamplePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 36,
-            ),
-          ),
-        ),
+        child: _selectedScreen,
       ),
     );
   }
