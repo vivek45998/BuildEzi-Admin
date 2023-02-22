@@ -16,4 +16,6 @@ class AppStrings {
   static const String enterPasswordLabel = 'enter password';
 
   static const String projectPage = 'ALL PROJECTS';
+  static const String enable = 'enable';
+  static const String disable = 'disable';
 }

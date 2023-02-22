@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
-import 'package:web/admin_page/project.dart';
-import 'package:web/admin_page/user_page.dart';
+import 'package:web/admin_page/project/project.dart';
+import 'package:web/admin_page/user/user_list.dart';
 import 'package:web/route/router_name.dart';
 import 'package:web/values/app_strings.dart';
 
-import 'admin_page/dashboard.dart';
+import 'admin_page/dashboard/dashboard.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
@@ -23,16 +23,20 @@ class _SamplePageState extends State<SamplePage> {
         setState(() {
           _selectedScreen = const DashboardPage();
         });
+      //  Navigator.pop(context);
         break;
       case RouterName.projectPage:
         setState(() {
           _selectedScreen = const ProjectPage();
         });
+      // Navigator.pop(context);
         break;
       case RouterName.userPage:
         setState(() {
           _selectedScreen = const UserPage();
         });
+      //  Navigator.pop(context);
+        break;
     }
   }
 
@@ -67,32 +71,7 @@ class _SamplePageState extends State<SamplePage> {
         onSelected: (item) {
           currentScreen(item);
         },
-        // header: Container(
-        //   height: 50,
-        //   width: double.infinity,
-        //   color: const Color(0xff444444),
-        //   child: const Center(
-        //     child: Text(
-        //       'header',
-        //       style: TextStyle(
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // footer: Container(
-        //   height: 50,
-        //   width: double.infinity,
-        //   color: const Color(0xff444444),
-        //   child: const Center(
-        //     child: Text(
-        //       'footer',
-        //       style: TextStyle(
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+
       ),
       body: SingleChildScrollView(
         child: _selectedScreen,

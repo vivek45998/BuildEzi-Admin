@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProjectPage extends StatelessWidget {
   const ProjectPage({Key? key}) : super(key: key);
-  static const String id = "projectPage";
+
 
   @override
   Widget build(BuildContext context) {

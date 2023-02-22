@@ -1,0 +1,45 @@
+[
+  {
+    "firstName": "dev",
+    "lastName": "mishra",
+    "email": "dev@yopmail.com",
+    "id": "1",
+    "type": "owner",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+  },
+  {
+    "firstName": "Sarthak",
+    "lastName": "mishra",
+    "email": "sarthak@yopmail.com",
+    "id": "2",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+  },
+  {
+    "firstName": "raju",
+    "lastName": "mishra",
+    "email": "raju@yopmail.com",
+    "id": "1",
+    "name": "raju",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+  },
+  {
+    "firstName": "abhay",
+    "lastName": "mishra",
+    "email": "abhay@yopmail.com",
+    "id": "1",
+    "name": "abhay",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+  },
+  {
+    "firstName": "aman",
+    "lastName": "mishra",
+    "email": "aman@yopmail.com",
+    "id": "1",
+    "name": "aman",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+  }
+]

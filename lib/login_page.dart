@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/sample_page.dart';
@@ -69,10 +68,6 @@ class _LoginPageState extends State<LoginPage> {
               width: width,
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.2),
-                // image: const DecorationImage(
-                //   image: AssetImage("assets/images/buildEzi.png"),
-                //   fit: BoxFit.cover,
-                // )
               ),
               child: Image.asset(
                 AppAssets.buildEziIcon,
@@ -97,9 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
                     Center(
                       child: Text(
                         AppStrings.loginTitle,
@@ -114,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(AppStrings.enterEmailLabel.capitalize()),
                     TextField(
                       controller: emailCtrl,
+                      keyboardType: TextInputType.emailAddress,
                       decoration:
                           const InputDecoration(border: OutlineInputBorder()),
 
@@ -123,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(AppStrings.enterPasswordLabel.capitalize()),
                     TextField(
                       controller: passCtrl,
+                      keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       decoration:
                           const InputDecoration(border: OutlineInputBorder()),
@@ -156,19 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     )
-                    // TextButton(
-                    //   style: ButtonStyle(
-                    //
-                    //   ),
-                    //   onPressed: () {
-                    //
-                    //   },
-                    //   child: const Text("Login"),
-                    // ),
-                    // const SizedBox(height: 15),
-                    // TextButton(onPressed: () {  }, child: Text(),
-                    //   //...
-                    // ),
                   ],
                 ),
               ),
