@@ -9,6 +9,8 @@ import 'package:web/login_page.dart';
 import 'package:web/route/router_url_name.dart';
 import 'package:web/sample_page.dart';
 
+import '../../admin_page/user/user_detail_responsive/layout_builder.dart';
+
 class AppRoute {
   static final List<GetPage> routes = [
     GetPage(
@@ -34,6 +36,10 @@ class AppRoute {
     GetPage(
         name: RouterUrlName.userDetail,
         page: () => UserDetail(),
+        middlewares: [RouteMiddleWare()]),
+    GetPage(
+        name: RouterUrlName.layoutPage,
+        page: () => LayoutPage(),
         middlewares: [RouteMiddleWare()])
   ];
 }
@@ -43,7 +49,7 @@ class RouteMiddleWare extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     var userEmail = LocalStorage.getData(LocalStorage.email);
     return userEmail != null
-         ? null//const RouteSettings(name:RouterUrlName.samplePage)
+        ? null //const RouteSettings(name:RouterUrlName.samplePage)
         : const RouteSettings(name: RouterUrlName.loginPage);
   }
 }

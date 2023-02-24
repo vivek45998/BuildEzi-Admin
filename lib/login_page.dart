@@ -7,7 +7,7 @@ import 'package:web/route/router_url_name.dart';
 import 'package:web/utiils/utils.page.dart';
 import 'package:web/values/app_assets.dart';
 import 'package:web/values/app_strings.dart';
-import 'dart:html' as html;
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   static const String id = "loginPage";
@@ -71,15 +71,15 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     var email=LocalStorage.getData(LocalStorage.email);
     print('4====$email');
-    html.window.onUnload.listen((event) async {
-      print('Reloaded====$email');
-      if(email!=null){
-        Get.toNamed(RouterUrlName.samplePage);
-
-      }
-      // Navigator.pushNamed(context, RouterUrlName.userDetail);
-      // Get.offNamed(RouterUrlName.samplePage);
-    });
+    // html.window.onUnload.listen((event) async {
+    //   print('Reloaded====$email');
+    //   if(email!=null){
+    //     Get.toNamed(RouterUrlName.samplePage);
+    //
+    //   }
+    //   // Navigator.pushNamed(context, RouterUrlName.userDetail);
+    //   // Get.offNamed(RouterUrlName.samplePage);
+    // });
   }
   @override
   Widget build(BuildContext context) {

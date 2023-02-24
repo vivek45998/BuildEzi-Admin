@@ -26,13 +26,15 @@ class _UserPageState extends State<UserPage> {
     readJsonUserList();
   }
 
-  String dropdownvalue = 'USER TYPE';
+  bool isEnabled = false;
+
+  String dropdownValue = 'USER TYPE';
   var items = ['USER TYPE', 'OCCUPATION TYPE', "NAME"];
 
   readJsonUserList() async {
     var us = await rootBundle.loadString(AppAssets.userJson);
-    var list = List<UserData>.from(
-        jsonDecode(us).map((x) => UserData.fromJson(x)));
+    var list =
+        List<UserData>.from(jsonDecode(us).map((x) => UserData.fromJson(x)));
     userData.clear();
     setState(() {
       userData.addAll(list);
@@ -42,7 +44,7 @@ class _UserPageState extends State<UserPage> {
 
   filterUserList(String value) {
     if (value.isNotEmpty) {
-      if (dropdownvalue == "USER TYPE") {
+      if (dropdownValue == "USER TYPE") {
         searchUserList.clear();
 
         for (var element in userData) {
@@ -54,7 +56,7 @@ class _UserPageState extends State<UserPage> {
           }
         }
       }
-      if (dropdownvalue == "OCCUPATION TYPE") {
+      if (dropdownValue == "OCCUPATION TYPE") {
         searchUserList.clear();
         for (var element in userData) {
           if (element.occupation?.name
@@ -67,7 +69,7 @@ class _UserPageState extends State<UserPage> {
           }
         }
       }
-      if (dropdownvalue == "NAME") {
+      if (dropdownValue == "NAME") {
         searchUserList.clear();
 
         for (var element in userData) {
@@ -109,23 +111,35 @@ class _UserPageState extends State<UserPage> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.search,
-                      size: width * 0.035,
-                      color: Colors.blue.withOpacity(0.5),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          isEnabled = true;
+                        });
+                      },
+                      child: Icon(
+                        Icons.search,
+                        size: width * 0.035,
+                        color: Colors.blue.withOpacity(0.5),
+                      ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
                           width: width,
                           child: Center(
                             child: TextField(
+                              //renabled: isEnabled,
+                            //  showCursor: isEnabled,
+
                               controller: searchController,
                               onChanged: (value) {
                                 filterUserList(value);
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
+                                // labelText:"Search".capitalizeFirst,
+                                label: Text("Search"),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -135,7 +149,8 @@ class _UserPageState extends State<UserPage> {
                     ),
                     DropdownButton(
                       // Initial Value
-                      value: dropdownvalue,
+                      underline: const SizedBox(),
+                      value: dropdownValue,
 
                       // Down Arrow Icon
                       icon: const Icon(Icons.keyboard_arrow_down),
@@ -151,7 +166,7 @@ class _UserPageState extends State<UserPage> {
                       // change button value to selected value
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownvalue = newValue!;
+                          dropdownValue = newValue!;
                         });
                       },
                     ),

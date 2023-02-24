@@ -27,7 +27,7 @@ class _ProjectPageState extends State<ProjectPage> {
     readJsonUserList();
   }
 
-  String dropdownvalue = 'PROJECT STATUS';
+  String dropdownValue = 'PROJECT STATUS';
   var items = ['PROJECT NAME', 'PROJECT STATUS', "NAME"];
 
   readJsonUserList() async {
@@ -44,19 +44,19 @@ class _ProjectPageState extends State<ProjectPage> {
 
   filterUserList(String value) {
     if (value.isNotEmpty) {
-      if (dropdownvalue == "PROJECT STATUS") {
+      if (dropdownValue == "PROJECT STATUS") {
         searchProjectList.clear();
 
         for (var element in projectData) {
-          if (element.type?.toLowerCase().contains(value.toLowerCase()) ==
+          if (element.status?.toLowerCase().contains(value.toLowerCase()) ==
               true) {
-            print(element.type);
+            print(element.status);
             searchProjectList.add(element);
             setState(() {});
           }
         }
       }
-      if (dropdownvalue == "PROJECT NAME") {
+      if (dropdownValue == "PROJECT NAME") {
         searchProjectList.clear();
         for (var element in projectData) {
           if (element.projectName?.toLowerCase()
@@ -68,7 +68,7 @@ class _ProjectPageState extends State<ProjectPage> {
           }
         }
       }
-      if (dropdownvalue == "NAME") {
+      if (dropdownValue == "NAME") {
        searchProjectList.clear();
 
         for (var element in projectData) {
@@ -135,7 +135,8 @@ class _ProjectPageState extends State<ProjectPage> {
                     ),
                     DropdownButton(
                       // Initial Value
-                      value: dropdownvalue,
+                      underline: const SizedBox(),
+                      value: dropdownValue,
 
                       // Down Arrow Icon
                       icon: const Icon(Icons.keyboard_arrow_down),
@@ -151,7 +152,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       // change button value to selected value
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownvalue = newValue!;
+                          dropdownValue = newValue!;
                         });
                       },
                     ),

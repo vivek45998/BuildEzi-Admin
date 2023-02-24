@@ -6,4 +6,5 @@ class RouterUrlName {
   static const String samplePage = "/sample_page";
   static const String userDetail = "/userDetail";
   static const String userItem = "/userItem";
+  static const String layoutPage = "/layoutPage";
 }

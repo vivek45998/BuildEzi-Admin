@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:web/local_storage.dart';
 import 'package:web/route/getx_route/getx_route.dart';
-
-import 'package:web/route/router.dart';
 import 'package:web/route/router_url_name.dart';
 
 Future<void> main() async {

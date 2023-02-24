@@ -28,7 +28,7 @@ class UserItem extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Get.toNamed(RouterUrlName.userDetail,arguments: user);
+            Get.toNamed(RouterUrlName.layoutPage,arguments: user);
             // context.goNamed("detailPage",extra: user );
             // // GoRoute(
             // //   path: RouterName.userDetail,

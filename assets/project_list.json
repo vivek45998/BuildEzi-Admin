@@ -4,62 +4,62 @@
     "projectName": "abs",
     "projectId": "34",
     "clientName": "Vishal",
-    "type": "Archive"
+    "status": "Archive"
   },
   {
     "id": "13",
     "projectName": "def",
     "projectId": "32",
     "clientName": "Vishal",
-    "type": "Archive"
+    "status": "Archive"
   },
   {
     "id": "14",
     "projectName": "dghi",
     "projectId": "322",
     "clientName": "Vishanvi",
-    "type": "completed"
+    "status": "completed"
   },
   {
     "id": "15",
     "projectName": "hji",
     "projectId": "32",
     "clientName": "sarthak",
-    "type": "resume"
+    "status": "resume"
   },
   {
     "id": "16",
     "projectName": "ajkl",
     "projectId": "45",
     "clientName": "Visnu",
-    "type": "paused"
+    "status": "paused"
   },
   {
     "id": "145",
     "projectName": "mnk",
     "projectId": "36",
     "clientName": "Vishal",
-    "type": "paused"
+    "status": "paused"
   },
   {
     "id": "17",
     "projectName": "ghvcb",
     "projectId": "38",
     "clientName": "pushakr",
-    "type": "resume"
+    "status": "resume"
   },
   {
     "id": "18",
     "projectName": "mno",
     "projectId": "39",
     "clientName": "shusheel",
-    "type": "completed"
+    "status": "completed"
   },
   {
     "id": "35",
     "projectName": "qwerty",
     "projectId": "369",
     "clientName": "deel",
-    "type": "resume"
+    "status": "resume"
   }
 ]
