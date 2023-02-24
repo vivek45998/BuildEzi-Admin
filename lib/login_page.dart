@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web/extention_function.dart';
-import 'package:web/sample_page.dart';
+import 'package:web/local_storage.dart';
+import 'package:web/route/router_url_name.dart';
 import 'package:web/utiils/utils.page.dart';
 import 'package:web/values/app_assets.dart';
 import 'package:web/values/app_colors.dart';
 import 'package:web/values/app_strings.dart';
-
+import 'dart:html' as html;
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   static const String id = "loginPage";
@@ -23,6 +24,10 @@ class _LoginPageState extends State<LoginPage> {
   double height = 0;
   double width = 0;
 
+  @override
+  bool _isChecked = false;
+
+
   validLogin() {
     var email = emailCtrl.text.trim().toString();
     var pass = passCtrl.text.trim().toString();
@@ -35,23 +40,46 @@ class _LoginPageState extends State<LoginPage> {
     } else if (pass.isEmpty) {
       Utils.showSnackBar(AppStrings.passEmpty, context, Colors.red);
       return false;
-    } else if (pass.length <= 8) {
-      Utils.showSnackBar(AppStrings.lengthPass, context, Colors.red);
-      return false;
-    } else if (pass.validateStructure(pass) == false) {
-      Utils.showSnackBar(AppStrings.passCombineError, context, Colors.red);
-      return false;
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SamplePage(),
-        ),
-      );
+    }
+
+    // } else if (pass.length <= 8) {
+    //   Utils.showSnackBar(AppStrings.lengthPass, context, Colors.red);
+    //   return false;
+    // } else if (pass.validateStructure(pass) == false) {
+    //   Utils.showSnackBar(AppStrings.passCombineError, context, Colors.red);
+    //   return false;
+    // }
+    else {
+      LocalStorage.saveData(LocalStorage.email, email);
+      Get.offAllNamed(RouterUrlName.samplePage);
+      //GoRouter.of(context).go(RouterUrlName.samplePage);
+      //GoRouter.of(context).pushReplacementNamed("samplePage");
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const SamplePage(),
+      //   ),
+      // );
       return true;
     }
   }
+@override
+  void initState() {
 
+    super.initState();
+    var email=LocalStorage.getData(LocalStorage.email);
+    print('4====$email');
+    html.window.onUnload.listen((event) async {
+      print('Reloaded====$email');
+      if(email!=null){
+        Get.toNamed(RouterUrlName.samplePage);
+
+      }
+      // Navigator.pushNamed(context, RouterUrlName.userDetail);
+      // Get.offNamed(RouterUrlName.samplePage);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;

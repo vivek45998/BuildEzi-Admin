@@ -7,18 +7,22 @@ class LocalStorage {
   static String userId = 'userId';
   static String userData = 'userData';
   static String userType = 'userType';
+  static String isRefresh = "isRefresh";
   static String email="email";
+  static String user="user";
 
   static final _box = GetStorage();
 
-  static void saveData(String key, var value) {
+  static void saveData(dynamic key, var value) {
     _box.write(key, value);
   }
 
-  static dynamic getData(String key) {
+  static dynamic getData(dynamic key) {
     return _box.read(key);
   }
-
+  static dynamic remove(dynamic key) {
+    return _box.remove(key);
+  }
   static void clearUserData() {
     saveData(userData, null);
   }

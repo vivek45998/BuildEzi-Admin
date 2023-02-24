@@ -1,0 +1,75 @@
+[
+  {
+    "firstName": "dev",
+    "lastName": "mishra",
+    "email": "dev@yopmail.com",
+    "id": "1",
+    "type": "owner",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    "occupation": {
+      "id": 4,
+      "name": "Pharmacist"
+    },
+    "phone": "454564564",
+    "trial_ended": "2023-03-23"
+  },
+  {
+    "firstName": "Sarthak",
+    "lastName": "mishra",
+    "email": "sarthak@yopmail.com",
+    "id": "3",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    "occupation": {
+      "id": 3,
+      "name": "Architect"
+    },
+    "phone": "45656456456",
+    "trial_ended": "2023-03-23"
+  },
+  {
+    "firstName": "raju",
+    "lastName": "mishra",
+    "email": "raju@yopmail.com",
+    "id": "4",
+    "name": "raju",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    "occupation": {
+      "id": 1,
+      "name": "Worker"
+    },
+    "phone": "454455",
+    "trial_ended": "2023-03-23"
+  },
+  {
+    "firstName": "abhay",
+    "lastName": "mishra",
+    "email": "abhay@yopmail.com",
+    "id": "5",
+    "name": "abhay",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    "occupation": {
+      "id": 7,
+      "name": "Teacher"
+    },
+    "phone": "6464544484",
+    "trial_ended": "2023-03-23"
+  },
+  {
+    "firstName": "aman",
+    "lastName": "mishra",
+    "email": "aman@yopmail.com",
+    "id": "6",
+    "name": "aman",
+    "type": "builder",
+    "image": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    "occupation": {
+      "id": 0,
+      "name": "Technician"
+    },
+    "phone": "54545455",
+    "trial_ended": "2023-03-23"
+  }
+]
