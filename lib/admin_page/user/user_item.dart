@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:web/admin_page/user/user_detail_page.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/model/user_data.dart';
+import 'package:web/route/router_url_name.dart';
 import 'package:web/values/app_strings.dart';
 
 class UserItem extends StatelessWidget {
@@ -25,12 +28,18 @@ class UserItem extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UserDetail(user:user),
-              ),
-            );
+            Get.toNamed(RouterUrlName.userDetail,arguments: user);
+            // context.goNamed("detailPage",extra: user );
+            // // GoRoute(
+            // //   path: RouterName.userDetail,
+            // //   builder: (context, state) => UserDetail(user: user),
+            // // );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => UserDetail(user:user),
+            //   ),
+            // );
           },
           child: ListTile(
             leading: Container(
@@ -50,7 +59,7 @@ class UserItem extends StatelessWidget {
               ),
             ),
             title: Text(
-              user?.firstName.toString().capitalize() ?? "".capitalize(),
+              user?.firstName.toString().capitalizeFirst ?? "",
               style: TextStyle(
                 fontSize: height * 0.020,
                 fontWeight: FontWeight.w600,
@@ -69,10 +78,10 @@ class UserItem extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(AppStrings.enable.capitalize()),
+                    child: Text(AppStrings.enable..capitalizeFirst),
                   ),
                   Expanded(
-                    child: Text(AppStrings.disable.capitalize()),
+                    child: Text(AppStrings.disable..capitalizeFirst),
                   )
                 ],
               ),

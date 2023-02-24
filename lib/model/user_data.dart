@@ -1,35 +1,68 @@
 class UserData {
   UserData({
-     this.email,
-  this.id,
     this.firstName,
-    this.type,
     this.lastName,
-    this.image
+    this.email,
+    this.id,
+    this.type,
+    this.image,
+    this.occupation,
+    this.phone,
+    this.trialEnded,
   });
 
+  String? firstName;
   String? lastName;
-  String ?email;
-  String ?id;
-  String ?firstName;
-  String ?type;
-  String ?image;
+  String? email;
+  String? id;
+  String? type;
+  String? image;
+  Occupation? occupation;
+  String? phone;
+  DateTime? trialEnded;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
-    email: json["email"],
-    id: json["id"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    type: json["type"],
-    image: json["image"],
-  );
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        id: json["id"],
+        type: json["type"],
+        image: json["image"],
+        occupation: Occupation.fromJson(json["occupation"]),
+        phone: json["phone"],
+        trialEnded: DateTime.parse(json["trial_ended"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "email": email,
-    "id": id,
-    "firstName": firstName,
-    "type": type,
-    "lastName":lastName,
-    "image":image
-  };
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "id": id,
+        "type": type,
+        "image": image,
+        "occupation": occupation?.toJson(),
+        "phone": phone,
+        "trial_ended":
+            "${trialEnded?.year.toString().padLeft(4, '0')}-${trialEnded?.month.toString().padLeft(2, '0')}-${trialEnded?.day.toString().padLeft(2, '0')}",
+      };
+}
+
+class Occupation {
+  Occupation({
+    this.id,
+    this.name,
+  });
+
+  int? id;
+  String? name;
+
+  factory Occupation.fromJson(Map<String, dynamic> json) => Occupation(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+      };
 }
