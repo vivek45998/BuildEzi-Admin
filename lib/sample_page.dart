@@ -3,6 +3,7 @@ import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:web/admin_page/project.dart';
 import 'package:web/admin_page/user_page.dart';
 import 'package:web/route/router_name.dart';
+import 'package:web/values/app_colors.dart';
 import 'package:web/values/app_strings.dart';
 
 import 'admin_page/dashboard.dart';
@@ -41,11 +42,15 @@ class _SamplePageState extends State<SamplePage> {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+         backgroundColor: AppColor.appBarColor,
         title: Text(
           AppStrings.admin.toUpperCase(),
         ),
       ),
       sideBar: SideBar(
+        activeBackgroundColor: Colors.redAccent,
+        activeIconColor: Colors.redAccent,
+        activeTextStyle: TextStyle(color: Colors.redAccent),
         items: [
           AdminMenuItem(
             title: AppStrings.dashboard.toUpperCase(),
@@ -55,12 +60,17 @@ class _SamplePageState extends State<SamplePage> {
           AdminMenuItem(
             title: AppStrings.allUser.toUpperCase(),
             route: RouterName.userPage,
-            icon: Icons.person,
+            icon: Icons.people,
           ),
           AdminMenuItem(
             title: AppStrings.projectPage.toUpperCase(),
             route: RouterName.projectPage,
             icon: Icons.file_present_outlined,
+          ),
+          AdminMenuItem(
+            title: AppStrings.logout.toUpperCase(),
+            route: RouterName.projectPage,
+            icon: Icons.logout,
           ),
         ],
         selectedRoute: RouterName.samplePage,
@@ -94,9 +104,7 @@ class _SamplePageState extends State<SamplePage> {
         //   ),
         // ),
       ),
-      body: SingleChildScrollView(
-        child: _selectedScreen,
-      ),
+      body: _selectedScreen,
     );
   }
 }

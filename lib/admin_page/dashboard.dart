@@ -5,7 +5,7 @@ class DashboardPage extends StatelessWidget {
   static const String id="dashboard-screen";
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("dashboard"),
     );
     return const Scaffold(
