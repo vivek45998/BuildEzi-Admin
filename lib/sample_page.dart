@@ -1,97 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:web/admin_page/project/project.dart';
+import 'package:web/admin_page/user/user_list.dart';
+import 'package:web/route/router_url_name.dart';
+import 'package:web/values/app_strings.dart';
+import 'admin_page/dashboard/dashboard.dart';
 
-class SamplePage extends StatelessWidget {
+class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
   @override
+  State<SamplePage> createState() => _SamplePageState();
+}
+
+class _SamplePageState extends State<SamplePage> {
+  Widget _selectedScreen = const DashboardPage();
+
+  currentScreen(item) {
+    switch (item.route) {
+      case RouterUrlName.dashboard:
+        setState(() {
+          _selectedScreen = const DashboardPage();
+        });
+      //  Navigator.pop(context);
+        break;
+      case RouterUrlName.projectPage:
+        setState(() {
+          _selectedScreen = const ProjectPage();
+        });
+      // Navigator.pop(context);
+        break;
+      case RouterUrlName.userPage:
+        setState(() {
+          _selectedScreen = const UserPage();
+        });
+      //  Navigator.pop(context);
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AdminScaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Sample'),
-      ),
-      sideBar: SideBar(
-        items: const [
-          AdminMenuItem(
-            title: 'Dashboard',
-            route: '/',
-            icon: Icons.dashboard,
-          ),
-          AdminMenuItem(
-            title: 'Top Level',
-            icon: Icons.file_copy,
-            children: [
-              AdminMenuItem(
-                title: 'Second Level Item 1',
-                route: '/secondLevelItem1',
-              ),
-              AdminMenuItem(
-                title: 'Second Level Item 2',
-                route: '/secondLevelItem2',
-              ),
-              AdminMenuItem(
-                title: 'Third Level',
-                children: [
-                  AdminMenuItem(
-                    title: 'Third Level Item 1',
-                    route: '/thirdLevelItem1',
-                  ),
-                  AdminMenuItem(
-                    title: 'Third Level Item 2',
-                    route: '/thirdLevelItem2',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-        selectedRoute: '/',
-        onSelected: (item) {
-          if (item.route != null) {
-            Navigator.of(context).pushNamed(item.route!);
-          }
-        },
-        header: Container(
-          height: 50,
-          width: double.infinity,
-          color: const Color(0xff444444),
-          child: const Center(
-            child: Text(
-              'header',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+    },
+      child: AdminScaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            AppStrings.admin.toUpperCase(),
           ),
         ),
-        footer: Container(
-          height: 50,
-          width: double.infinity,
-          color: const Color(0xff444444),
-          child: const Center(
-            child: Text(
-              'footer',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+        sideBar: SideBar(
+          items: [
+            AdminMenuItem(
+              title: AppStrings.dashboard.toUpperCase(),
+              route: RouterUrlName.dashboard,
+              icon: Icons.dashboard,
             ),
-          ),
+            AdminMenuItem(
+              title: AppStrings.allUser.toUpperCase(),
+              route: RouterUrlName.userPage,
+              icon: Icons.person,
+            ),
+            AdminMenuItem(
+              title: AppStrings.projectPage.toUpperCase(),
+              route: RouterUrlName.projectPage,
+              icon: Icons.file_present_outlined,
+            ),
+          ],
+          selectedRoute: RouterUrlName.samplePage,
+          onSelected: (item) {
+            currentScreen(item);
+          },
+
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 36,
-            ),
-          ),
+        body: SingleChildScrollView(
+          child: _selectedScreen,
         ),
       ),
     );
   }
+
+
 }
