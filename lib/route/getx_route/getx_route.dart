@@ -18,23 +18,28 @@ class AppRoute {
     GetPage(
         name: RouterUrlName.samplePage,
         page: () => const SamplePage(),
-        middlewares: [RouteMiddleWare()]),
+        // middlewares: [RouteMiddleWare()]
+    ),
     GetPage(
         name: RouterUrlName.dashboard,
         page: () => const DashboardPage(),
-        middlewares: [RouteMiddleWare()]),
+        // middlewares: [RouteMiddleWare()]
+    ),
     GetPage(
         name: RouterUrlName.projectPage,
         page: () => const ProjectPage(),
-        middlewares: [RouteMiddleWare()]),
+        // middlewares: [RouteMiddleWare()]
+    ),
     GetPage(
         name: RouterUrlName.userPage,
         page: () => const UserPage(),
-        middlewares: [RouteMiddleWare()]),
+        // middlewares: [RouteMiddleWare()]
+    ),
     GetPage(
         name: RouterUrlName.userDetail,
         page: () => UserDetail(),
-        middlewares: [RouteMiddleWare()])
+        // middlewares: [RouteMiddleWare()]
+    )
   ];
 }
 

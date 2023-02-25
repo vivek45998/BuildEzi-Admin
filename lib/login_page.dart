@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/local_storage.dart';
 import 'package:web/route/router_url_name.dart';
+import 'package:web/sample_page.dart';
 import 'package:web/utiils/utils.page.dart';
 import 'package:web/values/app_assets.dart';
 import 'package:web/values/app_colors.dart';
 import 'package:web/values/app_strings.dart';
-import 'dart:html' as html;
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
   static const String id = "loginPage";
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
     // }
     else {
       LocalStorage.saveData(LocalStorage.email, email);
-      Get.offAllNamed(RouterUrlName.samplePage);
+      Get.rootDelegate.toNamed(RouterUrlName.samplePage);
       //GoRouter.of(context).go(RouterUrlName.samplePage);
       //GoRouter.of(context).pushReplacementNamed("samplePage");
 
@@ -70,15 +70,21 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     var email=LocalStorage.getData(LocalStorage.email);
     print('4====$email');
-    html.window.onUnload.listen((event) async {
-      print('Reloaded====$email');
-      if(email!=null){
-        Get.toNamed(RouterUrlName.samplePage);
-
+    if(email!=null)
+      {
+        Get.rootDelegate.toNamed(RouterUrlName.samplePage);
       }
-      // Navigator.pushNamed(context, RouterUrlName.userDetail);
-      // Get.offNamed(RouterUrlName.samplePage);
-    });
+
+    // html.window.onUnload.listen((event) async {
+    //   print('Reloaded====$email');
+    //   if(email!=null){
+    //    // Get.toNamed(RouterUrlName.samplePage);
+    //     Get.offAllNamed(RouterUrlName.samplePage);
+    //
+    //   }
+    //   // Navigator.pushNamed(context, RouterUrlName.userDetail);
+    //   // Get.offNamed(RouterUrlName.samplePage);
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -201,13 +207,13 @@ class _LoginPageState extends State<LoginPage> {
                                                 SizedBox(height: height * 0.03),
                                                 InkWell(
                                                   onTap: () {
-                                                   // validLogin();
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) => const SamplePage(),
-                                                      ),
-                                                    );
+                                                   validLogin();
+                                                    // Navigator.push(
+                                                    //   context,
+                                                    //   MaterialPageRoute(
+                                                    //     builder: (context) => const SamplePage(),
+                                                    //   ),
+                                                    // );
                                                   },
                                                   child: Container(
                                                     height: height * 0.06,

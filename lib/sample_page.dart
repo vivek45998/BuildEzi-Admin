@@ -3,9 +3,7 @@ import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:web/admin_page/project/project.dart';
 import 'package:web/admin_page/user/user_list.dart';
 import 'package:web/route/router_url_name.dart';
-import 'package:web/values/app_colors.dart';
 import 'package:web/values/app_strings.dart';
-
 import 'admin_page/dashboard/dashboard.dart';
 
 class SamplePage extends StatefulWidget {

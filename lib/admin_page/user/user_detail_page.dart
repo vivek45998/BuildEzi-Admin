@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web/local_storage.dart';
 import 'package:web/model/user_data.dart';
-import 'package:web/route/router_url_name.dart';
-import 'dart:html' as html;
 import '../../values/app_assets.dart';
 
 class UserDetail extends StatefulWidget {
@@ -23,11 +21,11 @@ class _UserDetailState extends State<UserDetail> {
   @override
   initState() {
     // TODO: implement initState
-    html.window.onUnload.listen((event) async {
-      print('Reloaded');
-     // Navigator.pushNamed(context, RouterUrlName.userDetail);
-     // Get.offNamed(RouterUrlName.samplePage);
-    });
+    // html.window.onUnload.listen((event) async {
+    //   print('Reloaded');
+    //  // Navigator.pushNamed(context, RouterUrlName.userDetail);
+    //  // Get.offNamed(RouterUrlName.samplePage);
+    // });
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++');
     super.initState();
    widget.user =Get.arguments;

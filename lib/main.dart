@@ -7,6 +7,8 @@ import 'package:web/route/getx_route/getx_route.dart';
 import 'package:web/route/router.dart';
 import 'package:web/route/router_url_name.dart';
 
+import 'get_route_delegate.dart';
+
 Future<void> main() async {
   await GetStorage.init();
   runApp(const MyApp());
@@ -17,22 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetMaterialApp.router(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-     initialRoute: RouterUrlName.loginPage,
-     getPages:AppRoute.routes,
+      getPages:AppRoute.routes,
+      routerDelegate: AppRouterDelegate(),
      // routerConfig: AppRoutes.routes,
       // initialRoute: routeCheck(),
       // routes: Routers.routes(context));
