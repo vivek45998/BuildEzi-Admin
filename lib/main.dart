@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web/login_page.dart';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:web/local_storage.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -71,5 +74,9 @@ class MyApp extends StatelessWidget {
       print("=====================$email=========");
       return RouterUrlName.loginPage;
     }
+        primarySwatch:  Colors.blueGrey,
+      ),
+      home:  const LoginPage(),
+    );
   }
 }

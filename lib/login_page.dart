@@ -90,6 +90,30 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Expanded(
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 21),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+
+                  const SizedBox(height: 8),
+                  Center(
+                    child: Text(
+                      'Login to your account',
+                      style: GoogleFonts.inter(
+                        fontSize: 23,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 35),
+                  const SizedBox(
+                   // height:height*0.2,
+                  //  width: width*0.2,
+                    child: TextField(
+                      decoration: InputDecoration(border: OutlineInputBorder()),
               height: height,
               width: width,
               decoration: BoxDecoration(
