@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveLayoutPage extends StatelessWidget {
-  ResponsiveLayoutPage({
+  const ResponsiveLayoutPage({
     Key? key,
     required this.mobileBody,
     required this.desktopBody,
