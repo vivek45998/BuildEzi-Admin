@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:web/local_storage.dart';
 import 'package:web/model/user_data.dart';
 import 'package:web/values/app_assets.dart';
+import '../../values/app_assets.dart';
 
 class UserDetail extends StatefulWidget {
   UserDetail({Key? key, this.user}) : super(key: key);
@@ -27,6 +28,11 @@ class _UserDetailState extends State<UserDetail> {
     //   print('Reloaded');
     //   // Navigator.pushNamed(context, RouterUrlName.userDetail);
     //   // Get.offNamed(RouterUrlName.samplePage);
+    // });
+    // html.window.onUnload.listen((event) async {
+    //   print('Reloaded');
+    //  // Navigator.pushNamed(context, RouterUrlName.userDetail);
+    //  // Get.offNamed(RouterUrlName.samplePage);
     // });
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++');
     super.initState();

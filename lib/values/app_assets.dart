@@ -6,4 +6,7 @@ class AppAssets {
       "assets/images/background_image_build_ezi.png";
   static const String userJson = "assets/user_list.json";
   static const String projectJson = "assets/project_list.json";
+ static const String splashBackgroundImage= "assets/images/splash_background_image.png";
+ static const String searchIcon= "assets/images/search.svg";
+ static const String filterIcon= "assets/images/filter.png";
 }

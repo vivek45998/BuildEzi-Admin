@@ -6,16 +6,20 @@ class AppStrings {
   static const String lengthPass =
       "Your password must be at least 8 characters long";
   static const String passCombineError =
-      "contain at least one number and have a mixture of uppercase, lowercase letters and special character.";
+      "Contain at least one number and have a mixture of uppercase, lowercase letters and special character.";
   static const String login = "Login";
   static const String loginTitle = 'Login to your account';
   static const String admin = 'Admin';
   static const String dashboard = 'DASHBOARD';
   static const String allUser = 'ALL USERS';
-  static const String enterEmailLabel = 'enter email';
-  static const String enterPasswordLabel = 'enter password';
-
+  static const String enterEmailLabel = 'Enter Email';
+  static const String enterPasswordLabel = 'Enter Password';
   static const String projectPage = 'ALL PROJECTS';
   static const String enable = 'enable';
   static const String disable = 'disable';
+  static const String logout= "Logout";
+  static const String email= "Email";
+  static const String password= "Password";
+  static const String search= "Search";
+
 }
