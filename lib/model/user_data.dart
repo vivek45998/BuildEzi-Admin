@@ -53,7 +53,7 @@ class Occupation {
     this.name,
   });
 
-  int? id;
+  String? id;
   String? name;
 
   factory Occupation.fromJson(Map<String, dynamic> json) => Occupation(

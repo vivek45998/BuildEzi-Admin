@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:web/admin_page/user/user_detail_page.dart';
-import 'package:web/extention_function.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:web/admin_page/user/user_detail_responsive/layout_builder.dart';
 import 'package:web/model/user_data.dart';
 import 'package:web/route/router_url_name.dart';
 import 'package:web/values/app_strings.dart';
@@ -28,7 +27,23 @@ class UserItem extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Get.rootDelegate.offNamed(RouterUrlName.layoutPage,arguments: user);
+          var  map= {
+              "firstName": "abhay",
+              "lastName": "mishra",
+              "email": "abhay@yopmail.com",
+              "id": "5",
+              "name": "abhay",
+              "type": "builder",
+              "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+
+              "phone": "6464544484",
+              "trial_ended": "2023-03-23"
+            };
+          context.vxNav.push(Uri.parse(RouterUrlName.layoutPage),params: user);
+         //   Get.rootDelegate.offNamed(RouterUrlName.layoutPage,arguments: user);
+        //    Get.rootDelegate.toNamed(RouterUrlName.layoutPage,parameters:{"id":user?.id??''});
+         // Get.offAllNamed("/'${RouterUrlName.layoutPage}'?device=phone&id=354&name=Enzo");
+            //Get.to(()=>LayoutPage(user: user,));
             // context.goNamed("detailPage",extra: user );
             // // GoRoute(
             // //   path: RouterName.userDetail,

@@ -17,6 +17,7 @@ class _MobileLayoutState extends State<MobileLayout> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    var size = MediaQuery.of(context).size;
     double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
@@ -135,7 +136,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                                     .toUpperCase(),
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: width * 0.02),
+                                    fontSize:width * 0.01),/*width * 0.02*/
                               ),
                               SizedBox(
                                 height: height * 0.02,
