@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
-import 'package:web/model/project_model.dart';
-
+import 'package:velocity_x/velocity_x.dart';
+import 'package:web/model/project_list_model.dart';
+import 'package:web/route/router_url_name.dart';
 
 class ProjectItem extends StatelessWidget {
   ProjectItem({Key? key, this.projectDetail}) : super(key: key);
-  ProjectDetail ?projectDetail;
+  ProjectList? projectDetail;
   double height = 0;
   double width = 0;
 
@@ -24,7 +23,9 @@ class ProjectItem extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-           // Get.toNamed(RouterUrlName.userDetail,arguments: user);
+            context.vxNav.push(Uri.parse(RouterUrlName.projectLayoutPage),
+                params: projectDetail);
+            // Get.toNamed(RouterUrlName.userDetail,arguments: user);
             // context.goNamed("detailPage",extra: user );
             // // GoRoute(
             // //   path: RouterName.userDetail,
@@ -46,7 +47,8 @@ class ProjectItem extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  projectDetail?.clientName![0].toUpperCase() ?? '',
+                  projectDetail?.data?.builder?.firstName![0].toUpperCase() ??
+                      '',
                   style: const TextStyle(
                       color: Colors.white,
                       fontFamily: "Sk-modernist",
@@ -55,7 +57,10 @@ class ProjectItem extends StatelessWidget {
               ),
             ),
             title: Text(
-              projectDetail?.clientName.toString().capitalizeFirst ?? "",
+              projectDetail?.data?.builder?.firstName
+                      .toString()
+                      .capitalizeFirst ??
+                  "",
               style: TextStyle(
                 fontSize: height * 0.020,
                 fontWeight: FontWeight.w600,
@@ -63,7 +68,7 @@ class ProjectItem extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              projectDetail?.projectName ?? "",
+              projectDetail?.data?.name ?? "",
               style: TextStyle(
                   fontSize: height * 0.016,
                   fontWeight: FontWeight.w400,

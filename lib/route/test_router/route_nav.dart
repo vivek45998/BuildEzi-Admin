@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 import 'package:web/model/user_data.dart';
 
 import '../../admin_page/dashboard.dart';
-import '../../admin_page/project.dart';
+
+import '../../admin_page/project/project.dart';
 import '../../admin_page/user/user_detail_page.dart';
 import '../../admin_page/user/user_detail_responsive/layout_builder.dart';
 import '../../admin_page/user/user_list.dart';

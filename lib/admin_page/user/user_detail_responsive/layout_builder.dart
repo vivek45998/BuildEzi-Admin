@@ -45,7 +45,7 @@ class _LayoutPageState extends State<LayoutPage> {
       );
       print('Reloaded2');
     });
-    html.window.onLoadedData;
+    //html.window.onLoadedData;
     //var parameters =
     //Get.currentRoute;
     // print("===========${Get.currentRoute};");

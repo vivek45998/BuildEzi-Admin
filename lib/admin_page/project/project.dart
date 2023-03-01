@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:web/admin_page/project/prject_list_widget.dart';
-import 'package:web/model/project_model.dart';
+import 'package:web/model/project_list_model.dart';
 
 import '../../values/app_assets.dart';
 
@@ -15,8 +15,8 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  var projectData = <ProjectDetail>[];
-  var searchProjectList = <ProjectDetail>[];
+  var projectData = <ProjectList>[];
+  var searchProjectList = <ProjectList>[];
   var type = "";
   var occupation = "";
   var searchController = TextEditingController();
@@ -31,9 +31,9 @@ class _ProjectPageState extends State<ProjectPage> {
   var items = ['PROJECT NAME', 'PROJECT STATUS', "NAME"];
 
   readJsonUserList() async {
-   var projectDatak= await rootBundle.loadString(AppAssets.projectJson);
-    var list = List<ProjectDetail>.from(
-        jsonDecode(projectDatak).map((x) => ProjectDetail.fromJson(x)));
+    var projectDatak = await rootBundle.loadString(AppAssets.projectJson);
+    var list = List<ProjectList>.from(
+        jsonDecode(projectDatak).map((x) => ProjectList.fromJson(x)));
     projectData.clear();
     searchProjectList.clear();
     setState(() {
@@ -48,9 +48,11 @@ class _ProjectPageState extends State<ProjectPage> {
         searchProjectList.clear();
 
         for (var element in projectData) {
-          if (element.status?.toLowerCase().contains(value.toLowerCase()) ==
+          if (element.data?.status
+                  ?.toLowerCase()
+                  .contains(value.toLowerCase()) ==
               true) {
-            print(element.status);
+            print(element.data?.status);
             searchProjectList.add(element);
             setState(() {});
           }
@@ -59,22 +61,23 @@ class _ProjectPageState extends State<ProjectPage> {
       if (dropdownValue == "PROJECT NAME") {
         searchProjectList.clear();
         for (var element in projectData) {
-          if (element.projectName?.toLowerCase()
-              .contains(value.toLowerCase()) ==
+          if (element.data?.name?.toLowerCase().contains(value.toLowerCase()) ==
               true) {
-            print(element.projectName);
+            print(element.data?.name);
             searchProjectList.add(element);
             setState(() {});
           }
         }
       }
       if (dropdownValue == "NAME") {
-       searchProjectList.clear();
+        searchProjectList.clear();
 
         for (var element in projectData) {
-          if (element.clientName?.toLowerCase().contains(value.toLowerCase()) ==
+          if (element.data?.builder?.firstName
+                  ?.toLowerCase()
+                  .contains(value.toLowerCase()) ==
               true) {
-            print(element.clientName);
+            print(element.data?.builder?.firstName);
             searchProjectList.add(element);
             setState(() {});
           }
@@ -86,9 +89,11 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {});
     }
   }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    var size = MediaQuery.of(context).size;
     double width = MediaQuery.of(context).size.width;
     return Center(
       child: Column(
@@ -96,39 +101,39 @@ class _ProjectPageState extends State<ProjectPage> {
           SizedBox(
             height: height * 0.03,
           ),
-          SizedBox(
-            height: height * 0.08,
-            child: Padding(
-              padding:
-              EdgeInsets.only(left: height * 0.016, right: height * 0.016),
-              child: InputDecorator(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
+          Padding(
+            padding:
+                EdgeInsets.only(left: height * 0.016, right: height * 0.016),
+            child: InputDecorator(
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
                 ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: Row(
                   children: [
                     Icon(
                       Icons.search,
-                      size: width * 0.035,
+                      size: height * 0.045,
                       color: Colors.blue.withOpacity(0.5),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: width,
-                          child: Center(
-                            child: TextField(
-                              controller: searchController,
-                              onChanged: (value) {
-                                filterUserList(value);
-                              },
-                              decoration: const InputDecoration(
+                      child: SizedBox(
+                        width: width,
+                        child: Center(
+                          child: TextField(
+                            controller: searchController,
+                            onChanged: (value) {
+                              filterUserList(value);
+                            },
+                            decoration: const InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 5),
                                 border: InputBorder.none,
-                              ),
-                            ),
+                                hintText: "Search"),
                           ),
                         ),
                       ),

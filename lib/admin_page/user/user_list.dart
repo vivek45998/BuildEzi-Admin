@@ -98,17 +98,18 @@ class _UserPageState extends State<UserPage> {
           SizedBox(
             height: height * 0.03,
           ),
-          SizedBox(
-            height: height * 0.08,
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: height * 0.016, right: height * 0.016),
-              child: InputDecorator(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
+          Padding(
+            padding:
+                EdgeInsets.only(left: height * 0.016, right: height * 0.016),
+            child: InputDecorator(
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
                 ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: Row(
                   children: [
                     InkWell(
@@ -119,29 +120,27 @@ class _UserPageState extends State<UserPage> {
                       },
                       child: Icon(
                         Icons.search,
-                        size: width * 0.035,
+                        size: height * 0.045,
                         color: Colors.blue.withOpacity(0.5),
                       ),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: width,
-                          child: Center(
-                            child: TextField(
-                              //renabled: isEnabled,
+                      child: SizedBox(
+                        width: width,
+                        child: Center(
+                          child: TextField(
+                            //renabled: isEnabled,
                             //  showCursor: isEnabled,
 
-                              controller: searchController,
-                              onChanged: (value) {
-                                filterUserList(value);
-                              },
-                              decoration: const InputDecoration(
-                                // labelText:"Search".capitalizeFirst,
-                                label: Text("Search"),
-                                border: InputBorder.none,
-                              ),
+                            controller: searchController,
+                            onChanged: (value) {
+                              filterUserList(value);
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 5),
+                              // labelText:"Search".capitalizeFirst,
+                              label: Text("Search"),
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
@@ -186,10 +185,6 @@ class _UserPageState extends State<UserPage> {
         ],
       ),
     );
-    return const Scaffold(
-      body: Center(
-        child: Text("user"),
-      ),
-    );
+
   }
 }

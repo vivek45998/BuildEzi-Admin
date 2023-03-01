@@ -10,6 +10,7 @@ class LocalStorage {
   static String isRefresh = "isRefresh";
   static String email="email";
   static String user="user";
+  static String projectData="projectData";
 
   static final _box = GetStorage();
 

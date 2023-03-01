@@ -1,24 +1,33 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:web/model/user_data.dart';
+import 'package:web/admin_page/user/widget/project_detail_widget/builder_detail_page.dart';
+import 'package:web/model/project_list_model.dart';
+import '../../../../values/app_assets.dart';
+import '../../../user/widget/project_detail_widget/builder_and_client_detail.dart';
 
-import '../../../values/app_assets.dart';
-import '../widget/widget_user_detail.dart';
-
-class MobileLayout extends StatefulWidget {
-  MobileLayout({Key? key, this.user}) : super(key: key);
-  UserData? user;
-
+class ProjectMobilePage extends StatefulWidget {
+  ProjectMobilePage({Key? key, this.projectDetail, this.isMobile}) : super(key: key);
+  ProjectList? projectDetail;
+  bool ?isMobile;
   @override
-  State<MobileLayout> createState() => _MobileLayoutState();
+  State<ProjectMobilePage> createState() => _ProjectMobilePageState();
 }
 
-class _MobileLayoutState extends State<MobileLayout> {
+class _ProjectMobilePageState extends State<ProjectMobilePage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    var size = MediaQuery.of(context).size;
-    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    var size = MediaQuery
+        .of(context)
+        .size;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Stack(
       children: [
         Text(
@@ -117,7 +126,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
-                                      BorderRadius.circular(height * 0.13),
+                                  BorderRadius.circular(height * 0.13),
                                   boxShadow: [
                                     BoxShadow(
                                       offset: const Offset(0.5, 0.5),
@@ -126,20 +135,39 @@ class _MobileLayoutState extends State<MobileLayout> {
                                     )
                                   ],
                                 ),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(widget.user?.image ?? ''),
+                                child: widget.projectDetail?.data?.builder
+                                    ?.profilePicture ==
+                                    ""
+                                    ? CircleAvatar(
+                                  child: Text(
+                                    widget?.projectDetail?.data?.builder
+                                        ?.firstName[0]
+                                        .toString() ??
+                                        '',
+                                    style: TextStyle(
+                                        fontSize: width * 0.05),
+                                  ),
+                                )
+                                    : CircleAvatar(
+                                  backgroundImage: NetworkImage(widget
+                                      .projectDetail
+                                      ?.data
+                                      ?.builder
+                                      ?.profilePicture ??
+                                      ''),
                                 ),
                               ),
                               SizedBox(
                                 height: height * 0.02,
                               ),
                               Text(
-                                "${widget.user?.firstName ?? ''} ${widget.user?.lastName}"
+                                "${widget.projectDetail?.data?.builder
+                                    ?.firstName ?? ''} ${widget.projectDetail
+                                    ?.data?.builder?.lastName}"
                                     .toUpperCase(),
                                 style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: width * 0.01), /*width * 0.02*/
+                                    color: Colors.black87,
+                                    fontSize: height * 0.01), /*width * 0.02*/
                               ),
                               SizedBox(
                                 height: height * 0.02,
@@ -161,27 +189,41 @@ class _MobileLayoutState extends State<MobileLayout> {
                         SizedBox(
                           height: width * 0.03,
                         ),
-                        Container(
-                          height: height * 0.33,
-                          width: width * 0.45,
-                          //  color: Colors.blue,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(0.5, 0.5),
-                                blurRadius: 1,
-                                color: Colors.grey,
-                              ),
-                              BoxShadow(
-                                offset: Offset(-0.5, -0.5),
-                                blurRadius: 1,
-                                color: Colors.grey,
-                              )
-                            ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 6.0),
+                            child: Text(
+                              "Project Detail".toUpperCase(),
+                              style: TextStyle(
+                                  fontSize: height * 0.019, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                          child: DetailWidget(user: widget.user),
+                        ),
+                        SizedBox(
+                          height: height * 0.012,
+                        ),
+                        Container(
+                            height: height * 0.33,
+                            width: width * 0.45,
+                            //  color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  offset: Offset(0.5, 0.5),
+                                  blurRadius: 1,
+                                  color: Colors.grey,
+                                ),
+                                BoxShadow(
+                                  offset: Offset(-0.5, -0.5),
+                                  blurRadius: 1,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                            child: ProjectAndClientDetail(projectList: widget.projectDetail,)
                         )
                       ],
                     ),

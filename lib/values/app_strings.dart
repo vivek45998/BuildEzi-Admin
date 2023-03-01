@@ -15,8 +15,8 @@ class AppStrings {
   static const String enterEmailLabel = 'Enter Email';
   static const String enterPasswordLabel = 'Enter Password';
   static const String projectPage = 'ALL PROJECTS';
-  static const String enable = 'enable';
-  static const String disable = 'disable';
+  static const String enable = 'Active';
+  static const String disable = 'Dactive';
   static const String logout= "Logout";
   static const String email= "Email";
   static const String password= "Password";

@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:web/admin_page/project.dart';
+import 'package:web/admin_page/project/project_detail_page/project_detail_layout/layout_builder.dart';
 import 'package:web/admin_page/user/user_detail_page.dart';
 import 'package:web/login_page.dart';
 import 'package:web/route/getx_route/getx_route.dart';
 import 'package:web/route/router_url_name.dart';
 import 'package:web/sample_page.dart';
 
+import 'admin_page/project/project.dart';
 import 'admin_page/user/user_detail_responsive/layout_builder.dart';
 
 // @JS()
@@ -44,22 +45,24 @@ class MyApp extends StatelessWidget {
       // },
       routerDelegate: VxNavigator(routes: {
         "/": (_, __) => MaterialPage(child: LoginPage()),
-        RouterUrlName.layoutPage: (_, param) =>
-            MaterialPage(
+        RouterUrlName.layoutPage: (_, param) => MaterialPage(
               child: LayoutPage(
                 user: param,
               ),
             ),
-        RouterUrlName.samplePage: (_, __) =>
-        const MaterialPage(
-          child: SamplePage(),
-        ),
+        RouterUrlName.samplePage: (_, __) => const MaterialPage(
+              child: SamplePage(),
+            ),
         RouterUrlName.projectPage: (_, __) =>
-        const MaterialPage(child: ProjectPage()),
-        RouterUrlName.userDetail: (_, __) =>
-            MaterialPage(
+            const MaterialPage(child: ProjectPage()),
+        RouterUrlName.userDetail: (_, __) => MaterialPage(
               child: UserDetail(),
             ),
+        RouterUrlName.projectLayoutPage: (_, params) => MaterialPage(
+              child: ProjectLayoutBuilder(
+                projectList: params,
+              ),
+            )
       }),
     );
     return GetMaterialApp(
