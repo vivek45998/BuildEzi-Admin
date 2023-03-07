@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 import 'dart:html' as html;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -8,20 +7,20 @@ import 'package:web/admin_page/project/project_detail_page/mobile_and_web_design
 import 'package:web/admin_page/project/project_detail_page/mobile_and_web_design/mobile_page.dart';
 import 'package:web/admin_page/project/project_detail_page/project_detail_layout/responsive_layout.dart';
 import 'package:web/model/project_list_model.dart';
-
+import 'package:web/model/remote_project_list_model.dart';
 import '../../../../local_storage.dart';
 import '../../../../route/router_url_name.dart';
 
 class ProjectLayoutBuilder extends StatefulWidget {
   ProjectLayoutBuilder({Key? key, this.projectList}) : super(key: key);
-  ProjectList? projectList;
+  ProjectModel? projectList;
 
   @override
   State<ProjectLayoutBuilder> createState() => _ProjectLayoutBuilderState();
 }
 
 class _ProjectLayoutBuilderState extends State<ProjectLayoutBuilder> {
-  ProjectList? projectList;
+  ProjectModel? projectList;
 
   @override
   void initState() {
@@ -33,6 +32,7 @@ class _ProjectLayoutBuilderState extends State<ProjectLayoutBuilder> {
       await context.vxNav.push(
         Uri.parse(RouterUrlName.projectLayoutPage),
       );
+    //  Get
       print('Reloaded2');
     });
     if (widget.projectList != null) {
@@ -49,7 +49,7 @@ class _ProjectLayoutBuilderState extends State<ProjectLayoutBuilder> {
     if (isRefresh == true) {
       projectList = data;
     } else {
-      var y = ProjectList.fromJson(data);
+      var y = ProjectModel.fromJson(data);
       projectList = y;
     }
     setState(() {

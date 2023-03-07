@@ -11,6 +11,8 @@ class LocalStorage {
   static String email="email";
   static String user="user";
   static String projectData="projectData";
+  static String loginBearerToken="loginBearerToken";
+
 
   static final _box = GetStorage();
 

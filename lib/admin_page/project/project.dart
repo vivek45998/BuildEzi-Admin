@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:web/admin_page/project/prject_list_widget.dart';
+import 'package:web/admin_page/remote/remote_repo.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_list_model.dart';
+import 'package:web/values/app_colors.dart';
 
 import '../../values/app_assets.dart';
 
@@ -15,8 +19,8 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  var projectData = <ProjectList>[];
-  var searchProjectList = <ProjectList>[];
+  var projectData = <ProjectModel>[];
+  var searchProjectList = <ProjectModel>[];
   var type = "";
   var occupation = "";
   var searchController = TextEditingController();
@@ -24,11 +28,27 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
-    readJsonUserList();
+
+    projectList();
+   // BackButtonInterceptor.add(myInterceptor);
   }
+  // bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  //   print("BACK BUTTON!"); // Do some stuff.
+  //   return true;
+  // }
 
   String dropdownValue = 'PROJECT STATUS';
-  var items = ['PROJECT NAME', 'PROJECT STATUS', "NAME"];
+  var items = ['PROJECT NAME', 'PROJECT STATUS', "CREATED BY"];
+
+  projectList() async {
+    var data = await RemoteRepo.allProjects();
+    projectData.clear();
+    searchProjectList.clear();
+    setState(() {
+      projectData.addAll(data);
+      searchProjectList.addAll(data);
+    });
+  }
 
   readJsonUserList() async {
     var projectDatak = await rootBundle.loadString(AppAssets.projectJson);
@@ -37,51 +57,53 @@ class _ProjectPageState extends State<ProjectPage> {
     projectData.clear();
     searchProjectList.clear();
     setState(() {
-      projectData.addAll(list);
-      searchProjectList.addAll(list);
+
     });
   }
 
-  filterUserList(String value) {
+  filterUserList(String value) async {
     if (value.isNotEmpty) {
       if (dropdownValue == "PROJECT STATUS") {
         searchProjectList.clear();
-
-        for (var element in projectData) {
-          if (element.data?.status
-                  ?.toLowerCase()
-                  .contains(value.toLowerCase()) ==
-              true) {
-            print(element.data?.status);
-            searchProjectList.add(element);
-            setState(() {});
-          }
+        var data = await RemoteRepo.filterProjectList(
+          searchValue: value,
+          searchKey: "status",
+        );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchProjectList.addAll(data);
+          });
         }
+
       }
       if (dropdownValue == "PROJECT NAME") {
         searchProjectList.clear();
-        for (var element in projectData) {
-          if (element.data?.name?.toLowerCase().contains(value.toLowerCase()) ==
-              true) {
-            print(element.data?.name);
-            searchProjectList.add(element);
-            setState(() {});
-          }
+        var data = await RemoteRepo.filterProjectList(
+          searchValue: value,
+          searchKey: "project_name",
+        );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchProjectList.addAll(data);
+          });
         }
-      }
-      if (dropdownValue == "NAME") {
-        searchProjectList.clear();
 
-        for (var element in projectData) {
-          if (element.data?.builder?.firstName
-                  ?.toLowerCase()
-                  .contains(value.toLowerCase()) ==
-              true) {
-            print(element.data?.builder?.firstName);
-            searchProjectList.add(element);
-            setState(() {});
-          }
+      }
+      if (dropdownValue == "CREATED BY") {
+        searchProjectList.clear();
+        var data = await RemoteRepo.filterProjectList(
+          searchValue: value,
+          searchKey: "created_by",
+        );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchProjectList.addAll(data);
+          });
         }
+
       }
     } else {
       searchProjectList.clear();
@@ -115,10 +137,15 @@ class _ProjectPageState extends State<ProjectPage> {
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.search,
-                      size: height * 0.045,
-                      color: Colors.blue.withOpacity(0.5),
+                    InkWell(
+                      onTap: () {
+                        filterUserList(searchController.text);
+                      },
+                      child: Icon(
+                        Icons.search,
+                        size: height * 0.045,
+                        color: AppColor.appBarColor,
+                      ),
                     ),
                     Expanded(
                       child: SizedBox(
@@ -127,7 +154,13 @@ class _ProjectPageState extends State<ProjectPage> {
                           child: TextField(
                             controller: searchController,
                             onChanged: (value) {
-                              filterUserList(value);
+                              if (value.isEmpty) {
+                                searchProjectList.clear();
+                                searchProjectList.addAll(projectData);
+                                setState(() {
+
+                                });
+                              }
                             },
                             decoration: const InputDecoration(
                                 contentPadding:

@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:web/extention_function.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
 
 class ProjectClientWorkerWidget extends StatelessWidget {
   ProjectClientWorkerWidget({Key? key, this.projectDetail}) : super(key: key);
-  ProjectList? projectDetail;
+  ProjectDetailModel? projectDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +65,15 @@ class ProjectClientWorkerWidget extends StatelessWidget {
             width: width,
             text: "Project detail",
             title1: "Project name :",
-            title1Value: projectDetail?.data?.name,
+            title1Value: projectDetail?.name?.toString().capitalize()??'',
             title2: "Status :",
-            title2Value: projectDetail?.data?.status,
+            title2Value: projectDetail?.status,
             title3: "Created at :",
-            title3Value: projectDetail?.data?.createdDate?.toIso8601String(),
+            title3Value: projectDetail?.createdDate?.toIso8601String(),
             title4: "Last update :",
-            title4Value: projectDetail?.data?.lastUpdated?.toIso8601String(),
+            title4Value: projectDetail?.lastUpdated?.toIso8601String(),
             title5: "Description :",
-            title5value: projectDetail?.data?.description ?? '',
+            title5value: projectDetail?.description.toString().capitalize() ?? '',
           ),
         ),
         Expanded(
@@ -80,15 +82,15 @@ class ProjectClientWorkerWidget extends StatelessWidget {
             width: width,
             text: "Client detail",
             title1: "First name :",
-            title1Value: projectDetail?.data?.client?.firstName,
+            title1Value: projectDetail?.client?.firstName.toString().capitalize()??'',
             title2: "Last name :",
-            title2Value: projectDetail?.data?.client?.lastName,
+            title2Value: projectDetail?.client?.lastName.toString().capitalize()??'',
             title3: "Email :",
-            title3Value: projectDetail?.data?.client?.email,
+            title3Value: projectDetail?.client?.email,
             title4: "Phone :",
-            title4Value: projectDetail?.data?.client?.phone,
+            title4Value: projectDetail?.client?.phone,
             title5: "User type",
-            title5value: "Client",
+            title5value: "Client"..toString().capitalize(),
           ),
         ),
 

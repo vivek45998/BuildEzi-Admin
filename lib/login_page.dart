@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+//import 'package:velocity_x/velocity_x.dart';
+import 'package:web/admin_page/remote/remote_repo.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/local_storage.dart';
+import 'package:web/localstorage_sessionstorage/localstorage.dart';
+import 'package:web/localstorage_sessionstorage/sessionstorage.dart';
+import 'package:web/model/admin_data.dart';
 import 'package:web/route/router_url_name.dart';
 import 'package:web/utiils/utils.page.dart';
 import 'package:web/values/app_assets.dart';
 import 'package:web/values/app_colors.dart';
 import 'package:web/values/app_strings.dart';
+import 'dart:html' as html;
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
   static const String id = "loginPage";
 
   @override
@@ -22,15 +28,17 @@ class _LoginPageState extends State<LoginPage> {
   var emailCtrl = TextEditingController();
   var passCtrl = TextEditingController();
 
+
   double height = 0;
   double width = 0;
 
   @override
   bool _isChecked = false;
 
-  validLogin() {
+  validLogin() async {
     var email = emailCtrl.text.trim().toString();
     var pass = passCtrl.text.trim().toString();
+    var userData = {"email": email, "password": pass};
     if (email.isEmpty) {
       Utils.showSnackBar(AppStrings.emailEmpty, context, Colors.red);
       return false;
@@ -40,28 +48,38 @@ class _LoginPageState extends State<LoginPage> {
     } else if (pass.isEmpty) {
       Utils.showSnackBar(AppStrings.passEmpty, context, Colors.red);
       return false;
+    } else if (pass.length < 6) {
+      Utils.showSnackBar(AppStrings.lengthPass, context, Colors.red);
+      return false;
     }
-
-    // } else if (pass.length <= 8) {
-    //   Utils.showSnackBar(AppStrings.lengthPass, context, Colors.red);
-    //   return false;
-    // } else if (pass.validateStructure(pass) == false) {
+    // else if (pass.validateStructure(pass) == false) {
     //   Utils.showSnackBar(AppStrings.passCombineError, context, Colors.red);
     //   return false;
     // }
     else {
-      LocalStorage.saveData(LocalStorage.email, email);
-      context.vxNav.push(Uri.parse(RouterUrlName.samplePage));
-    //  Get.rootDelegate.toNamed(RouterUrlName.samplePage);
-      //GoRouter.of(context).go(RouterUrlName.samplePage);
-      //GoRouter.of(context).pushReplacementNamed("samplePage");
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const SamplePage(),
-      //   ),
-      // );
+
+      var data = await RemoteRepo.userLogin(userData: userData);
+      //if(data==)
+      AdminData adminData = data;
+      if(data.data.email==null){
+        Utils.showSnackBar(data.message, context, Colors.red);
+        return false;
+      }
+      else{
+        print("1====$data=====2");
+        print("1====${data.message}=====2");
+        LocalStorage.saveData(
+            LocalStorage.loginBearerToken, adminData.data?.jwtToken);
+        LocalStorageWindow.saveValue(LocalStorage.loginBearerToken, adminData.data?.jwtToken??'');
+        SessionStorage.saveValue(LocalStorage.loginBearerToken, adminData.data?.jwtToken??'');
+
+        //  html.window.localStorage;
+        // Get.rootDelegate.toNamed(RouterUrlName.samplePage);
+        context.vxNav.clearAndPush(Uri.parse(RouterUrlName.samplePage));
+      }
+      emailCtrl.clear();
+      passCtrl.clear();
       return true;
     }
   }

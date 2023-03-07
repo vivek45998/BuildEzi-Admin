@@ -1,16 +1,17 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+//import 'package:velocity_x/velocity_x.dart';
 import 'package:web/admin_page/user/widget/project_detail_widget/client_detail_widget.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
 
 import '../../../project/project_detail_page/project_detail_wideget_web/builder_detail.dart';
 
 class ProjectDetailWidget extends StatelessWidget {
   ProjectDetailWidget({Key? key, this.projectList}) : super(key: key);
-  ProjectList? projectList;
+  ProjectDetailModel? projectList;
 
   @override
   Widget build(BuildContext context) {

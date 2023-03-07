@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
 
 class ClientDetailPage extends StatelessWidget {
   ClientDetailPage({Key? key, this.projectDetail}) : super(key: key);
-  ProjectList? projectDetail;
+  ProjectDetailModel? projectDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class ClientDetailPage extends StatelessWidget {
             height: height * 0.002,
            ),
            Text(
-            projectDetail?.data?.client?.firstName
+            projectDetail?.client?.firstName
                 .toString()
                 .capitalize() ??
                 '',
@@ -58,7 +59,7 @@ class ClientDetailPage extends StatelessWidget {
             height: height * 0.002,
            ),
            Text(
-            projectDetail?.data?.client?.email
+            projectDetail?.client?.email
                 .toString()
                 .capitalize() ??
                 '',
@@ -79,7 +80,7 @@ class ClientDetailPage extends StatelessWidget {
             height: height * 0.002,
            ),
            Text(
-            projectDetail?.data?.client?.phone
+            projectDetail?.client?.phone
                 .toString()
                 ??
                 '',
@@ -110,7 +111,7 @@ class ClientDetailPage extends StatelessWidget {
             height: height * 0.002,
            ),
            Text(
-            projectDetail?.data?.client?.lastName
+            projectDetail?.client?.lastName
                 .toString()
                 .capitalize() ??
                 '',

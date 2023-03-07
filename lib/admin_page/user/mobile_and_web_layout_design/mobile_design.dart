@@ -1,19 +1,40 @@
+import 'dart:isolate';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web/model/user_data.dart';
+import 'package:web/admin_page/remote/remote_repo.dart';
+import 'package:web/model/user_data_list.dart';
+import 'package:web/model/user_detail.dart';
 
 import '../../../values/app_assets.dart';
 import '../widget/widget_user_detail.dart';
 
 class MobileLayout extends StatefulWidget {
   MobileLayout({Key? key, this.user}) : super(key: key);
-  UserData? user;
+  UserList? user;
 
   @override
   State<MobileLayout> createState() => _MobileLayoutState();
 }
 
 class _MobileLayoutState extends State<MobileLayout> {
+  UserDetailModel? userDetailModel;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userDetail();
+  }
+
+  userDetail() async {
+    var data = await RemoteRepo.userDetail(widget.user?.id??0);
+    userDetailModel=data;
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -51,13 +72,13 @@ class _MobileLayoutState extends State<MobileLayout> {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        "+++width=$width++ height=$height",
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
+                      // Text(
+                      //   "+++width=$width++ height=$height",
+                      //   style: const TextStyle(
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 16),
+                      // ),
                       Container(
                         height: height * 0.26,
                         width: width,
@@ -126,16 +147,16 @@ class _MobileLayoutState extends State<MobileLayout> {
                                     )
                                   ],
                                 ),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(widget.user?.image ?? ''),
+                                child: const CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'),
                                 ),
                               ),
                               SizedBox(
                                 height: height * 0.02,
                               ),
                               Text(
-                                "${widget.user?.firstName ?? ''} ${widget.user?.lastName}"
+                                "${userDetailModel?.firstName ?? ''} ${userDetailModel?.lastName}"
                                     .toUpperCase(),
                                 style: TextStyle(
                                     color: Colors.grey,
@@ -181,7 +202,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                               )
                             ],
                           ),
-                          child: DetailWidget(user: widget.user),
+                          child: DetailWidget(user: userDetailModel),
                         )
                       ],
                     ),

@@ -1,15 +1,15 @@
 class UserData {
-  UserData({
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.id,
-    this.type,
-    this.image,
-    this.occupation,
-    this.phone,
-    this.trialEnded,
-  });
+  UserData(
+      {this.firstName,
+      this.lastName,
+      this.email,
+      this.id,
+      this.type,
+      this.image,
+      this.occupation,
+      this.phone,
+      this.trialEnded,
+      this.isActive});
 
   String? firstName;
   String? lastName;
@@ -20,6 +20,7 @@ class UserData {
   Occupation? occupation;
   String? phone;
   DateTime? trialEnded;
+  bool? isActive;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
         firstName: json["firstName"],
@@ -31,6 +32,7 @@ class UserData {
         occupation: Occupation.fromJson(json["occupation"]),
         phone: json["phone"],
         trialEnded: DateTime.parse(json["trial_ended"]),
+        isActive: json["isActive"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +44,7 @@ class UserData {
         "image": image,
         "occupation": occupation?.toJson(),
         "phone": phone,
+        "isActive": isActive,
         "trial_ended":
             "${trialEnded?.year.toString().padLeft(4, '0')}-${trialEnded?.month.toString().padLeft(2, '0')}-${trialEnded?.day.toString().padLeft(2, '0')}",
       };

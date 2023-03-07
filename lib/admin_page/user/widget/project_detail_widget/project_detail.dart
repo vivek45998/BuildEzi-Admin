@@ -4,10 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
 
 class ProjectDet extends StatelessWidget {
   ProjectDet({Key? key,this.projectList}) : super(key: key);
-ProjectList? projectList;
+ProjectDetailModel? projectList;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -45,7 +46,7 @@ ProjectList? projectList;
                           height: height * 0.002,
                         ),
                         Text(
-                          projectList?.data?.name
+                          projectList?.name
                               .toString()
                               .capitalize() ??
                               '',
@@ -66,7 +67,7 @@ ProjectList? projectList;
                           height: height * 0.002,
                         ),
                         Text(
-                          projectList?.data?.description
+                          projectList?.description
                               .toString()
                               .capitalize() ??
                               '',
@@ -87,7 +88,7 @@ ProjectList? projectList;
                           height: height * 0.002,
                         ),
                         Text(
-                          projectList?.data?.createdDate
+                          projectList?.createdDate
                               .toString()
                               ??
                               '',
@@ -118,7 +119,7 @@ ProjectList? projectList;
                           height: height * 0.002,
                         ),
                         Text(
-                          projectList?.data?.lastUpdated
+                          projectList?.lastUpdated
                               .toString()
                               .capitalize() ??
                               '',
@@ -140,7 +141,7 @@ ProjectList? projectList;
                           height: height * 0.002,
                         ),
                         Text(
-                            projectList?.data?.status
+                            projectList?.status
                                 .toString()
                                 .capitalize() ??
                                 '',

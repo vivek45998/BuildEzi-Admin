@@ -52,8 +52,8 @@ class AppRoute {
 class RouteMiddleWare extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    var userEmail = LocalStorage.getData(LocalStorage.email);
-    return userEmail != null
+    var loginToken= LocalStorage.getData(LocalStorage.loginBearerToken);
+    return loginToken != null
         ? null //const RouteSettings(name:RouterUrlName.samplePage)
         : const RouteSettings(name: RouterUrlName.loginPage);
   }

@@ -2,9 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:web/admin_page/remote/remote_repo.dart';
 import 'package:web/admin_page/user/user_item.dart';
 import 'package:web/model/user_data.dart';
 import 'package:web/values/app_assets.dart';
+import 'package:web/values/app_colors.dart';
+
+import '../../model/user_data_list.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -14,8 +18,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  var userData = <UserData>[];
-  var searchUserList = <UserData>[];
+  //var userData = <UserData>[];
+  var userData = <UserList>[];
+  var searchUserList = <UserList>[];
   var type = "";
   var occupation = "";
   var searchController = TextEditingController();
@@ -23,13 +28,23 @@ class _UserPageState extends State<UserPage> {
   @override
   void initState() {
     super.initState();
-    readJsonUserList();
+    //readJsonUserList();
+    userListApi();
+  }
+
+  userListApi() async {
+    var data = await RemoteRepo.userList();
+    userData.clear();
+    setState(() {
+      userData.addAll(data);
+      searchUserList.addAll(data);
+    });
   }
 
   bool isEnabled = false;
 
   String dropdownValue = 'USER TYPE';
-  var items = ['USER TYPE', 'OCCUPATION TYPE', "NAME"];
+  var items = ['USER TYPE', 'OCCUPATION TYPE', "USER NAME"];
 
   readJsonUserList() async {
     var us = await rootBundle.loadString(AppAssets.userJson);
@@ -37,49 +52,75 @@ class _UserPageState extends State<UserPage> {
         List<UserData>.from(jsonDecode(us).map((x) => UserData.fromJson(x)));
     userData.clear();
     setState(() {
-      userData.addAll(list);
-      searchUserList.addAll(list);
+      // userData.addAll(list);
+      //  searchUserList.addAll(list);
     });
   }
 
-  filterUserList(String value) {
+  filterUserList(String value) async {
     if (value.isNotEmpty) {
       if (dropdownValue == "USER TYPE") {
         searchUserList.clear();
+        //  var userType = {"user_type": value};
+        print("hello filter1$value");
+        // var filterMap = "${NetworkConstants.userListApiFilter}$userType";
 
-        for (var element in userData) {
-          if (element.type?.toLowerCase().contains(value.toLowerCase()) ==
-              true) {
-            print(element.type);
-            searchUserList.add(element);
-            setState(() {});
-          }
+        var data = await RemoteRepo.filterUserList(searchValue:value,searchKey:"user_type", );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchUserList.addAll(data);
+          });
         }
+
+        print("hello filter2");
+        // for (var element in userData) {
+        //   if (element.type?.toLowerCase().contains(value.toLowerCase()) ==
+        //       true) {
+        //     print(element.type);
+        //     //searchUserList.add(element);
+        //     setState(() {});
+        //   }
+        // }
       }
       if (dropdownValue == "OCCUPATION TYPE") {
         searchUserList.clear();
-        for (var element in userData) {
-          if (element.occupation?.name
-                  ?.toLowerCase()
-                  .contains(value.toLowerCase()) ==
-              true) {
-            print(element.occupation?.name);
-            searchUserList.add(element);
-            setState(() {});
-          }
+        var data = await RemoteRepo.filterUserList(searchValue:value,searchKey:"occupation", );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchUserList.addAll(data);
+          });
         }
+        // searchUserList.clear();
+        // for (var element in userData) {
+        //   if (element.occupation?.name
+        //           ?.toLowerCase()
+        //           .contains(value.toLowerCase()) ==
+        //       true) {
+        //     print(element.occupation?.name);
+        //     //   searchUserList.add(element);
+        //     setState(() {});
+        //   }
+        // }
       }
-      if (dropdownValue == "NAME") {
+      if (dropdownValue == "USER NAME") {
         searchUserList.clear();
-
-        for (var element in userData) {
+        var data = await RemoteRepo.filterUserList(searchValue:value,searchKey:"fullname", );
+        if (data != null) {
+          setState(() {
+            print("hello filter$data");
+            searchUserList.addAll(data);
+          });
+        }
+     /*   for (var element in userData) {
           if (element.firstName?.toLowerCase().contains(value.toLowerCase()) ==
               true) {
             print(element.firstName);
-            searchUserList.add(element);
+            //  searchUserList.add(element);
             setState(() {});
           }
-        }
+        }*/
       }
     } else {
       searchUserList.clear();
@@ -114,14 +155,15 @@ class _UserPageState extends State<UserPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          isEnabled = true;
-                        });
+                        // setState(() {
+                        //   isEnabled = true;
+                        // });
+                        filterUserList(searchController.text.toString());
                       },
                       child: Icon(
                         Icons.search,
                         size: height * 0.045,
-                        color: Colors.blue.withOpacity(0.5),
+                        color:AppColor.appBarColor,
                       ),
                     ),
                     Expanded(
@@ -134,12 +176,20 @@ class _UserPageState extends State<UserPage> {
 
                             controller: searchController,
                             onChanged: (value) {
-                              filterUserList(value);
+                              if (value.isEmpty) {
+                                print("value====$value");
+                                setState(() {});
+                                searchUserList.clear();
+                                searchUserList.addAll(userData);
+                              }
                             },
+                            // onSubmitted: (v){
+                            //   filterUserList(v);
+                            // },
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
-                              // labelText:"Search".capitalizeFirst,
-                              label: Text("Search"),
+                              // labelText:"Search",
+                              hintText: "Search",
                               border: InputBorder.none,
                             ),
                           ),
@@ -161,8 +211,7 @@ class _UserPageState extends State<UserPage> {
                           child: Text(items),
                         );
                       }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
+
                       onChanged: (String? newValue) {
                         setState(() {
                           dropdownValue = newValue!;
@@ -178,13 +227,12 @@ class _UserPageState extends State<UserPage> {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, index) {
               var user = searchUserList[index];
-              return UserItem(user: user);
+              return UserItem(user: user,key: UniqueKey(),);
             },
             itemCount: searchUserList.length,
           ),
         ],
       ),
     );
-
   }
 }

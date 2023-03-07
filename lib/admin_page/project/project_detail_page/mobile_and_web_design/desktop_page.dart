@@ -1,23 +1,39 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:web/admin_page/user/widget/project_detail_widget/builder_detail_page.dart';
 import 'package:web/model/project_list_model.dart';
-
+import 'package:web/model/remote_project_detail_model.dart';
+import 'package:web/model/remote_project_list_model.dart';
 import '../../../../values/app_assets.dart';
-import '../project_detail_wideget_web/builder_detail.dart';
+import '../../../remote/remote_repo.dart';
 import '../project_detail_wideget_web/profile_image_and_project_detail.dart';
 import '../project_detail_wideget_web/web_project_detail.dart';
 
 class ProjectDesktopPage extends StatefulWidget {
   ProjectDesktopPage({Key? key, this.projectDetail}) : super(key: key);
-  ProjectList? projectDetail;
+  ProjectModel? projectDetail;
 
   @override
   State<ProjectDesktopPage> createState() => _ProjectDesktopPageState();
 }
 
 class _ProjectDesktopPageState extends State<ProjectDesktopPage> {
+  ProjectDetailModel? projectDetailModel;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userDetail();
+  }
+
+  userDetail() async {
+    var data = await RemoteRepo.projectDetail(widget.projectDetail?.id??0);
+    projectDetailModel=data;
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -53,13 +69,13 @@ class _ProjectDesktopPageState extends State<ProjectDesktopPage> {
                     children: [
                       Column(
                         children: [
-                          Text(
-                            "+++width=$width++ height=$height",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          ),
+                          // Text(
+                          //   "+++width=$width++ height=$height",
+                          //   style: const TextStyle(
+                          //       color: Colors.black,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 16),
+                          // ),
                           Container(
                             height: height * 0.26,
                             width: width,
@@ -82,7 +98,7 @@ class _ProjectDesktopPageState extends State<ProjectDesktopPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ProfileImageAndProjectDetail(
-                                projectDetail: widget.projectDetail),
+                                projectDetail: projectDetailModel),
                             SizedBox(
                               width: width * 0.02,
                             ),
@@ -106,7 +122,7 @@ class _ProjectDesktopPageState extends State<ProjectDesktopPage> {
                                     )
                                   ],
                                 ),
-                                child:ProjectClientWorkerWidget(projectDetail: widget.projectDetail,)
+                                child:ProjectClientWorkerWidget(projectDetail:projectDetailModel,)
 
                                 )
                           ],

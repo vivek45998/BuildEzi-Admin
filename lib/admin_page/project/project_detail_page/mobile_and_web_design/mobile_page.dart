@@ -1,40 +1,53 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:web/admin_page/user/widget/project_detail_widget/builder_detail_page.dart';
-import 'package:web/model/project_list_model.dart';
+import 'package:web/extention_function.dart';
+import 'package:web/model/remote_project_detail_model.dart';
+import 'package:web/model/remote_project_list_model.dart';
+import 'package:web/values/app_colors.dart';
+
 import '../../../../values/app_assets.dart';
+import '../../../remote/remote_repo.dart';
 import '../../../user/widget/project_detail_widget/builder_and_client_detail.dart';
 
 class ProjectMobilePage extends StatefulWidget {
-  ProjectMobilePage({Key? key, this.projectDetail, this.isMobile}) : super(key: key);
-  ProjectList? projectDetail;
-  bool ?isMobile;
+  ProjectMobilePage({Key? key, this.projectDetail, this.isMobile})
+      : super(key: key);
+  ProjectModel? projectDetail;
+  bool? isMobile;
+
   @override
   State<ProjectMobilePage> createState() => _ProjectMobilePageState();
 }
 
 class _ProjectMobilePageState extends State<ProjectMobilePage> {
+  ProjectDetailModel? projectDetailModel;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userDetail();
+  }
+
+  userDetail() async {
+    var data = await RemoteRepo.projectDetail(widget.projectDetail?.id ?? 0);
+    projectDetailModel = data;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var size = MediaQuery
-        .of(context)
-        .size;
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double height = MediaQuery.of(context).size.height;
+    var size = MediaQuery.of(context).size;
+    double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        Text(
-          "+++$width++",
-          style: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-        ),
+        // Text(
+        //   "+++$width++",
+        //   style: const TextStyle(
+        //       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+        // ),
         Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -60,13 +73,13 @@ class _ProjectMobilePageState extends State<ProjectMobilePage> {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        "+++width=$width++ height=$height",
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
+                      // Text(
+                      //   "+++width=$width++ height=$height",
+                      //   style: const TextStyle(
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 16),
+                      // ),
                       Container(
                         height: height * 0.26,
                         width: width,
@@ -121,49 +134,50 @@ class _ProjectMobilePageState extends State<ProjectMobilePage> {
                                 height: height * 0.02,
                               ),
                               Container(
-                                height: height * 0.13,
-                                width: height * 0.13,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                  BorderRadius.circular(height * 0.13),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: const Offset(0.5, 0.5),
-                                      blurRadius: 0.5,
-                                      color: Colors.white.withOpacity(0.5),
-                                    )
-                                  ],
-                                ),
-                                child: widget.projectDetail?.data?.builder
-                                    ?.profilePicture ==
-                                    ""
-                                    ? CircleAvatar(
-                                  child: Text(
-                                    widget?.projectDetail?.data?.builder
-                                        ?.firstName[0]
-                                        .toString() ??
-                                        '',
-                                    style: TextStyle(
-                                        fontSize: width * 0.05),
+                                  height: height * 0.13,
+                                  width: height * 0.13,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.circular(height * 0.13),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: const Offset(0.5, 0.5),
+                                        blurRadius: 0.5,
+                                        color: Colors.white.withOpacity(0.5),
+                                      )
+                                    ],
                                   ),
-                                )
-                                    : CircleAvatar(
-                                  backgroundImage: NetworkImage(widget
-                                      .projectDetail
-                                      ?.data
-                                      ?.builder
-                                      ?.profilePicture ??
-                                      ''),
-                                ),
-                              ),
+                                  child: /* widget.projectDetail?.builder.
+                                    ?.n ==
+                                    null
+                                    ?*/
+                                      CircleAvatar(
+                                    backgroundColor: AppColor.appBarColor,
+                                    child: Text(
+                                      widget?.projectDetail?.builder
+                                              ?.firstName![0].capitalize() ??
+                                          ''?.toString() ??
+                                          '',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: width * 0.05),
+                                    ),
+                                  )
+                                  //     : CircleAvatar(
+                                  //   backgroundImage: NetworkImage(widget
+                                  //       .projectDetail
+                                  //       ?.data
+                                  //       ?.builder
+                                  //       ?.profilePicture ??
+                                  //       ''),
+                                  // ),
+                                  ),
                               SizedBox(
                                 height: height * 0.02,
                               ),
                               Text(
-                                "${widget.projectDetail?.data?.builder
-                                    ?.firstName ?? ''} ${widget.projectDetail
-                                    ?.data?.builder?.lastName}"
+                                "${widget.projectDetail?.builder?.firstName ?? ''} ${widget.projectDetail?.builder?.lastName}"
                                     .toUpperCase(),
                                 style: TextStyle(
                                     color: Colors.black87,
@@ -196,7 +210,8 @@ class _ProjectMobilePageState extends State<ProjectMobilePage> {
                             child: Text(
                               "Project Detail".toUpperCase(),
                               style: TextStyle(
-                                  fontSize: height * 0.019, fontWeight: FontWeight.bold),
+                                  fontSize: height * 0.019,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -223,8 +238,9 @@ class _ProjectMobilePageState extends State<ProjectMobilePage> {
                                 )
                               ],
                             ),
-                            child: ProjectAndClientDetail(projectList: widget.projectDetail,)
-                        )
+                            child: ProjectAndClientDetail(
+                              projectList: projectDetailModel,
+                            ))
                       ],
                     ),
                   )

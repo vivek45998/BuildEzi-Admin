@@ -5,10 +5,12 @@ import 'package:web/admin_page/user/widget/project_detail_widget/client_detail_w
 import 'package:web/admin_page/user/widget/project_detail_widget/builder_detail_page.dart';
 import 'package:web/admin_page/user/widget/project_detail_widget/project_detail.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
+import 'package:web/model/remote_project_list_model.dart';
 
 class ProjectAndClientDetail extends StatelessWidget {
   ProjectAndClientDetail({Key? key, this.projectList}) : super(key: key);
-  ProjectList? projectList;
+  ProjectDetailModel? projectList;
 
   @override
   Widget build(BuildContext context) {

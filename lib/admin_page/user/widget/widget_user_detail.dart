@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:web/model/user_data.dart';
+import 'package:web/model/user_detail.dart';
+
+import '../../../model/user_data_list.dart';
 
 class DetailWidget extends StatelessWidget {
   DetailWidget({Key? key, this.user}) : super(key: key);
-  UserData? user;
+  UserDetailModel? user;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,8 @@ class DetailWidget extends StatelessWidget {
             padding: const EdgeInsets.only(left: 6.0),
             child: Text(
               "User detail".toUpperCase(),
-              style:TextStyle( fontSize: height * 0.019,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: height * 0.019, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -83,7 +88,7 @@ class DetailWidget extends StatelessWidget {
                       Text(
                         user?.email.toString().capitalizeFirst ?? '',
                         style: TextStyle(
-                            fontSize:height * 0.016,
+                            fontSize: height * 0.016,
                             fontWeight: FontWeight.w200),
                       ),
                       SizedBox(
@@ -99,9 +104,10 @@ class DetailWidget extends StatelessWidget {
                         height: height * 0.002,
                       ),
                       Text(
-                        user?.phone.toString().capitalizeFirst ?? '',
+                         user?.phone.toString().capitalizeFirst ??'',
+                        //'12123545545',
                         style: TextStyle(
-                            fontSize:height * 0.016,
+                            fontSize: height * 0.016,
                             fontWeight: FontWeight.w200),
                       ),
                     ],
@@ -147,7 +153,7 @@ class DetailWidget extends StatelessWidget {
                       Text(
                         user?.occupation?.name.toString().capitalizeFirst ?? '',
                         style: TextStyle(
-                            fontSize:height * 0.016,
+                            fontSize: height * 0.016,
                             fontWeight: FontWeight.w200),
                       ),
                       SizedBox(
@@ -163,13 +169,12 @@ class DetailWidget extends StatelessWidget {
                         height: height * 0.002,
                       ),
                       Text(
-                        user?.type.toString().capitalizeFirst ?? '',
+                        user?.userType.toString().capitalizeFirst ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: height * 0.016,
                             fontWeight: FontWeight.w200),
                       ),
-
                     ],
                   ),
                 ),

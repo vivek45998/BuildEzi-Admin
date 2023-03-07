@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:web/model/project_list_model.dart';
+import 'package:web/extention_function.dart';
+
+import 'package:web/model/remote_project_detail_model.dart';
+import 'package:web/values/app_colors.dart';
 
 class ProfileImageAndProjectDetail extends StatelessWidget {
   ProfileImageAndProjectDetail({Key? key, this.projectDetail})
       : super(key: key);
-  ProjectList? projectDetail;
+  ProjectDetailModel? projectDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         width: width * 0.16,
         decoration: BoxDecoration(
           color: Colors.white,
-          // border: Border.all(
-          //   width: 0.5,
-          //   color: Colors.blueAccent,
-          // ),
+
           borderRadius: BorderRadius.circular(10),
           boxShadow: const [
             BoxShadow(
@@ -45,10 +45,11 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
                 height: height * 0.02,
               ),
               Text(
-                "${projectDetail?.data?.builder?.firstName ?? ''} ${projectDetail?.data?.builder?.lastName}"
+                "${projectDetail?.builder?.firstName ?? ''} ${projectDetail?.builder?.lastName}"
                     .toUpperCase(),
+                textAlign: TextAlign.center,
                 style:
-                    TextStyle(color: Colors.black87, fontSize: width * 0.017),
+                    TextStyle(color: Colors.black87, fontSize: width * 0.013),
               ),
               SizedBox(
                 height: height * 0.02,
@@ -86,17 +87,24 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
           )
         ],
       ),
-      child: projectDetail?.data?.builder?.profilePicture == ""
-          ? CircleAvatar(
-              child: Text(
-                projectDetail?.data?.builder?.firstName[0].toString() ?? '',
-                style: TextStyle(fontSize: width * 0.04),
-              ),
-            )
-          : CircleAvatar(
-              backgroundImage: NetworkImage(
-                  projectDetail?.data?.builder?.profilePicture ?? ''),
-            ),
+      child: CircleAvatar(
+        backgroundColor: AppColor.appBarColor,
+        child: Text(
+          projectDetail?.builder?.firstName![0]?.toString().capitalize() ?? '',
+          style: TextStyle(fontSize: width * 0.04,color: Colors.white),
+        ),
+      ),
+      // child: projectDetail?.builder?.profilePicture == ""
+      //     ? CircleAvatar(
+      //         child: Text(
+      //           projectDetail?.builder?.firstName![0]?.toString() ?? '',
+      //           style: TextStyle(fontSize: width * 0.04),
+      //         ),
+      //       )
+      //     : CircleAvatar(
+      //         backgroundImage: NetworkImage(
+      //             projectDetail?.builder?.profilePicture ?? ''),
+      //       ),
     );
   }
 
@@ -120,7 +128,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         ),
         detailPro(
             title: "First name :",
-            titleValue: projectDetail?.data?.builder?.firstName ?? '',
+            titleValue: projectDetail?.builder?.firstName?.capitalize() ?? '',
             height: height,
             width: width),
         SizedBox(
@@ -128,7 +136,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         ),
         detailPro(
             title: "Last name :",
-            titleValue: projectDetail?.data?.builder?.lastName ?? '',
+            titleValue: projectDetail?.builder?.lastName?.capitalize() ?? '',
             height: height,
             width: width),
         SizedBox(
@@ -136,7 +144,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         ),
         detailPro(
             title: "Email :",
-            titleValue: projectDetail?.data?.builder?.email ?? '',
+            titleValue: projectDetail?.builder?.email ?? '',
             height: height,
             width: width),
         SizedBox(
@@ -145,7 +153,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         detailPro(
             title: "Phone :",
             titleValue:
-                projectDetail?.data?.builder?.phone?? '',
+                projectDetail?.builder?.phone?? '',
             height: height,
             width: width),
         SizedBox(
@@ -154,7 +162,7 @@ class ProfileImageAndProjectDetail extends StatelessWidget {
         detailPro(
             title: "Type :",
             titleValue:
-                "Builder",
+                "Builder".capitalize(),
             height: height,
             width: width),
       ],

@@ -1,5 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:intl/intl.dart';
+
 
 extension StringExtension on String {
   bool isValidEmail(String email) {
@@ -18,8 +18,8 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase().trim()}";
   }
 
-  String dateTime(DateTime value) {
-    String formattedDate = DateFormat('dd-MM-yyyy').format(value);
-    return formattedDate;
-  }
+  // String dateTime(DateTime value) {
+  //  // String formattedDate = DateFormat('dd-MM-yyyy').format(value);
+  // /  return formattedDate;
+  // }
 }

@@ -11,7 +11,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
-
+   print("==========dashboard===========");
     super.initState();
     readJsonUserList();
   }

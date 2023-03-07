@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:web/extention_function.dart';
 import 'package:web/model/project_list_model.dart';
+import 'package:web/model/remote_project_detail_model.dart';
 
 class BuilderDetailPage extends StatelessWidget {
   BuilderDetailPage({Key? key, this.projectDetail}) : super(key: key);
-  ProjectList? projectDetail;
+  ProjectDetailModel? projectDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class BuilderDetailPage extends StatelessWidget {
                     height: height * 0.002,
                   ),
                   Text(
-                    projectDetail?.data?.builder?.firstName
+                    projectDetail?.builder?.firstName
                         .toString()
                         .capitalize() ??
                         '',
@@ -56,7 +57,7 @@ class BuilderDetailPage extends StatelessWidget {
                     height: height * 0.002,
                   ),
                   Text(
-                    projectDetail?.data?.builder?.email
+                    projectDetail?.builder?.email
                         .toString()
                         .capitalize() ??
                         '',
@@ -77,7 +78,7 @@ class BuilderDetailPage extends StatelessWidget {
                     height: height * 0.002,
                   ),
                   Text(
-                    projectDetail?.data?.builder?.phone
+                    projectDetail?.builder?.phone
                         .toString()
                         ??
                         '',
@@ -108,7 +109,7 @@ class BuilderDetailPage extends StatelessWidget {
                     height: height * 0.002,
                   ),
                   Text(
-                    projectDetail?.data?.builder?.lastName
+                    projectDetail?.builder?.lastName
                         .toString()
                         .capitalize() ??
                         '',
